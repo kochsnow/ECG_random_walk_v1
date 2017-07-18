@@ -4,13 +4,13 @@ import sys
 import time
 import glob
 import numpy as np
-import joblib
+# import joblib
 import scipy.signal
 import pdb
 
-from dpi.DPI_QRS_Detector import DPI_QRS_Detector as DPI
+# from dpi.DPI_QRS_Detector import DPI_QRS_Detector as DPI
 from random_walker import RandomWalker
-
+from  qrs_detection_jerry import  qrs_detector
 
 curfilepath =  os.path.realpath(__file__)
 current_folderpath = os.path.dirname(curfilepath)
@@ -80,11 +80,10 @@ def Testing(raw_sig_in, fs, model_list, walker_iterations = 100, walker_stepsize
         raw_sig = scipy.signal.resample(raw_sig, int(len(raw_sig) / float(fs) * 250.0))
     fs_inner = 250
 
-    dpi = DPI(debug_info = dict())
-    r_list = dpi.QRS_Detection(raw_sig, fs = fs_inner)
-
+    # dpi = DPI(debug_info = dict())
+    #r_list = dpi.QRS_Detection(raw_sig, fs = fs_inner)
+    r_list=qrs_detector(raw_sig,fs=fs_inner)
     walk_results = Testing_random_walk_RR_batch(raw_sig, fs_inner, r_list, model_list, iterations = walker_iterations, stepsize = walker_stepsize)
-
     walk_results.extend(zip(r_list, ['R',] * len(r_list)))
     # walk_results.extend(Testing_QS(raw_sig, fs_inner, r_list))
     # Change result indexes according to sampling frequency
@@ -728,7 +727,6 @@ def TestChanggeng(record_ind):
     import matplotlib.pyplot as plt
     import random
     fs = 250.0
-    from QTdata.loadQTdata import QTloader
     from changgengLoader import ECGLoader
 
     ecg = ECGLoader(500, current_folderpath)
@@ -748,8 +746,8 @@ def TestChanggeng(record_ind):
 
     raw_sig = resampled_sig
 
-    model_folder = '/home/alex/LabGit/ECG_random_walk/randomwalk/data/Lw3Np4000/improved'
-    pattern_file_name = '/home/alex/LabGit/ECG_random_walk/randomwalk/data/Lw3Np4000/random_pattern.json'
+    model_folder = '/home/chenbin/hyf/Sourecode/Sourecode/ECG_random_walk/randomwalk/data/Lw3Np4000/improved'
+    pattern_file_name = '/home/chenbin/hyf/Sourecode/Sourecode/ECG_random_walk/randomwalk/data/Lw3Np4000/random_pattern.json'
     model_list = GetModels(model_folder, pattern_file_name)
     start_time = time.time()
 
