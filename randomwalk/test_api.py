@@ -6,6 +6,8 @@ import glob
 import numpy as np
 # import joblib
 import scipy.signal
+import scipy.io as sio
+import matplotlib.pyplot as plt
 import pdb
 
 # from dpi.DPI_QRS_Detector import DPI_QRS_Detector as DPI
@@ -691,7 +693,7 @@ def Test1():
     plt.legend()
     plt.show()
 
-def TestChanggeng(record_ind):
+def TestChanggeng(raw_sig,fs):
     '''Test case1.'''
     def RunWalkerModel(walker_model, seed_positions, confined_ranges, feature_extractor):
         '''Run random walk detection model.
@@ -726,16 +728,10 @@ def TestChanggeng(record_ind):
 
     import matplotlib.pyplot as plt
     import random
-    fs = 250.0
-    from changgengLoader import ECGLoader
-
-    ecg = ECGLoader(500, current_folderpath)
-    record_name = ecg.P_faillist[record_ind]
-    sig = ecg.load(record_name)
-    raw_sig = sig[0]
     import scipy.signal
     # raw_sig = Denoise(raw_sig)
-    resampled_sig = scipy.signal.resample_poly(raw_sig, 1, 2)
+    fs_inner=250.0
+    resampled_sig = scipy.signal.resample_poly(raw_sig, 1, int(fs/fs_inner))
     # plt.figure(1)
     # plt.plot(raw_sig, label = 'signal')
     # plt.plot(xrange(0, len(raw_sig), 2), resampled_sig, label = 'resmaple')
@@ -746,8 +742,8 @@ def TestChanggeng(record_ind):
 
     raw_sig = resampled_sig
 
-    model_folder = '/home/chenbin/hyf/Sourecode/Sourecode/ECG_random_walk/randomwalk/data/Lw3Np4000/improved'
-    pattern_file_name = '/home/chenbin/hyf/Sourecode/Sourecode/ECG_random_walk/randomwalk/data/Lw3Np4000/random_pattern.json'
+    model_folder = '/home/chenbin/hyf/ECG_random_walk/rf_models'
+    pattern_file_name = '/home/chenbin/hyf/ECG_random_walk/rf_models/random_pattern.json'
     model_list = GetModels(model_folder, pattern_file_name)
     start_time = time.time()
 
@@ -804,24 +800,27 @@ def TestChanggeng(record_ind):
             plt.plot(path, xrange(up_amplitude, up_amplitude - int(len(path) * 0.01) + 1, 0.01),'r', alpha = 0.43)
 
     # Plot failed test
-    fail_results = ecg.loadAnnot(record_name, target_label = 'P')
-    pos_list = [int(x[0] / 2) for x in fail_results if x[1] == 'P']
-    amp_list = [raw_sig[x] for x in pos_list]
-    plt.plot(pos_list, amp_list, 'x',
-            markersize = 15,
-            markeredgewidth = 5,
-            alpha = 0.5,
-            label = 'failed')
+    # fail_results = ecg.loadAnnot(record_name, target_label = 'P')
+    # pos_list = [int(x[0] / 2) for x in fail_results if x[1] == 'P']
+    # amp_list = [raw_sig[x] for x in pos_list]
+    # plt.plot(pos_list, amp_list, 'x',
+    #         markersize = 15,
+    #         markeredgewidth = 5,
+    #         alpha = 0.5,
+    #         label = 'failed')
 
-
-    plt.title(record_name)
     plt.grid(True)
     plt.legend()
     plt.show(block = False)
     pdb.set_trace()
 
 if __name__ == '__main__':
-    # Test1()
-    for record_ind in xrange(0, 12):
-        TestChanggeng(record_ind)
-
+    path = '/home/chenbin/hyf/ECG_random_walk/randomwalk/data'
+    files = os.listdir(path)
+    for file in files:
+        if file[-5:] == 'm.mat':
+            Fs = 500
+            matpath = os.path.join(path, file)
+            rawdata = sio.loadmat(matpath)
+            rawsig = np.squeeze(rawdata['II'])
+            TestChanggeng(rawsig,Fs)
