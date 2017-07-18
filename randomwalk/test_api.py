@@ -654,23 +654,23 @@ def GetModels(model_folder, pattern_file_name):
 
 
 
-def Test1():
+def Test1(raw_sig,fs):
     '''Test case1.'''
     import matplotlib.pyplot as plt
-    record_name = 'sel30'
-    fs = 250.0
-    from QTdata.loadQTdata import QTloader
-    qt = QTloader()
-    sig = qt.load(record_name)
-    raw_sig = sig['sig']
-    raw_sig = raw_sig[0:250 * 120]
+    # record_name = 'sel30'
+    # fs = 250.0
+    # from QTdata.loadQTdata import QTloader
+    # qt = QTloader()
+    # sig = qt.load(record_name)
+    # raw_sig = sig['sig']
+    # raw_sig = raw_sig[0:250 * 120]
 
-    model_folder = '/home/alex/LabGit/ECG_random_walk/randomwalk/data/Lw3Np4000'
-    pattern_file_name = '/home/alex/LabGit/ECG_random_walk/randomwalk/data/Lw3Np4000/random_pattern.json'
+    model_folder = '/home/chenbin/hyf/ECG_random_walk/rf_models'
+    pattern_file_name = '/home/chenbin/hyf/ECG_random_walk/rf_models/random_pattern.json'
     model_list = GetModels(model_folder, pattern_file_name)
     start_time = time.time()
     # results = Testing_random_walk(raw_sig, 250.0, r_list, model_list)
-    results = Testing(raw_sig, 250.0, model_list, walker_iterations = 100)
+    results = Testing(raw_sig, fs, model_list, walker_iterations = 100)
     print 'Testing time cost %f secs.' % (time.time() - start_time)
 
     samples_count = len(raw_sig)
@@ -688,12 +688,11 @@ def Test1():
         plt.plot(pos_list, amp_list, 'o',
                 markersize = 15,
                 label = label)
-    plt.title(record_name)
     plt.grid(True)
     plt.legend()
     plt.show()
 
-def TestChanggeng(raw_sig,fs):
+def TestChanggeng(raw_sig,Fs):
     '''Test case1.'''
     def RunWalkerModel(walker_model, seed_positions, confined_ranges, feature_extractor):
         '''Run random walk detection model.
@@ -730,8 +729,8 @@ def TestChanggeng(raw_sig,fs):
     import random
     import scipy.signal
     # raw_sig = Denoise(raw_sig)
-    fs_inner=250.0
-    resampled_sig = scipy.signal.resample_poly(raw_sig, 1, int(fs/fs_inner))
+    fs=250.0
+    resampled_sig = scipy.signal.resample_poly(raw_sig, 1, int(Fs/fs))
     # plt.figure(1)
     # plt.plot(raw_sig, label = 'signal')
     # plt.plot(xrange(0, len(raw_sig), 2), resampled_sig, label = 'resmaple')
@@ -750,7 +749,7 @@ def TestChanggeng(raw_sig,fs):
     # Start Testing
     results = list()
     # results = Testing_random_walk(raw_sig, 250.0, r_list, model_list)
-    # results = Testing(raw_sig, 250.0, model_list, walker_iterations = 200)
+    results = Testing(raw_sig, 250.0, model_list, walker_iterations = 200)
     feature_extractor = model_list[0][0].GetFeatureExtractor(raw_sig)
     for walker_model, bias, model_label in model_list:
         if model_label != 'P':
@@ -796,8 +795,8 @@ def TestChanggeng(raw_sig,fs):
                 label = label)
 
         # Plot path
-        for path, up_amplitude in zip(path_list, amp_list):
-            plt.plot(path, xrange(up_amplitude, up_amplitude - int(len(path) * 0.01) + 1, 0.01),'r', alpha = 0.43)
+        # for path, up_amplitude in zip(path_list, amp_list):
+        #     plt.plot(path, xrange(up_amplitude, up_amplitude - int(len(path) * 0.01) + 1, 0.01),'r', alpha = 0.43)
 
     # Plot failed test
     # fail_results = ecg.loadAnnot(record_name, target_label = 'P')
@@ -812,7 +811,7 @@ def TestChanggeng(raw_sig,fs):
     plt.grid(True)
     plt.legend()
     plt.show(block = False)
-    pdb.set_trace()
+    # pdb.set_trace()
 
 if __name__ == '__main__':
     path = '/home/chenbin/hyf/ECG_random_walk/randomwalk/data'
@@ -823,4 +822,4 @@ if __name__ == '__main__':
             matpath = os.path.join(path, file)
             rawdata = sio.loadmat(matpath)
             rawsig = np.squeeze(rawdata['II'])
-            TestChanggeng(rawsig,Fs)
+            Test1(rawsig,Fs)
