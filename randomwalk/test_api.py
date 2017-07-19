@@ -682,11 +682,14 @@ def Test1(raw_sig,fs):
     plt.plot(raw_sig, label = 'ECG')
     pos_list, label_list = zip(*results)
     labels = set(label_list)
+    convert={'R':'ro','Ronset':'r<','Roffset':'r>',
+             'P':'bo','Ponset':'b<','Poffset':'b>',
+             'T':'go','Tonset':'g<','Toffset':'g>'}
     for label in labels:
         pos_list = [int(x[0]) for x in results if x[1] == label]
         amp_list = [raw_sig[x] for x in pos_list]
-        plt.plot(pos_list, amp_list, 'o',
-                markersize = 15,
+        plt.plot(pos_list, amp_list, convert[label],
+                markersize = 10,
                 label = label)
     plt.grid(True)
     plt.legend()
