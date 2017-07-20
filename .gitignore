@@ -1,8 +1,7 @@
 # Data
-*.json
+
 # Random Walk
-training/data/*
-randomwalk/data/*
+
 **.*~
 .idea
 # Byte-compiled / optimized / DLL files
