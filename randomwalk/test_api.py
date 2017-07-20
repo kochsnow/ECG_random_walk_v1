@@ -4,13 +4,15 @@ import sys
 import time
 import glob
 import numpy as np
-import joblib
+# import joblib
 import scipy.signal
+import scipy.io as sio
+import matplotlib.pyplot as plt
 import pdb
 
-from dpi.DPI_QRS_Detector import DPI_QRS_Detector as DPI
+# from dpi.DPI_QRS_Detector import DPI_QRS_Detector as DPI
 from random_walker import RandomWalker
-
+from  qrs_detection_jerry import  qrs_detector
 
 curfilepath =  os.path.realpath(__file__)
 current_folderpath = os.path.dirname(curfilepath)
@@ -80,11 +82,10 @@ def Testing(raw_sig_in, fs, model_list, walker_iterations = 100, walker_stepsize
         raw_sig = scipy.signal.resample(raw_sig, int(len(raw_sig) / float(fs) * 250.0))
     fs_inner = 250
 
-    dpi = DPI(debug_info = dict())
-    r_list = dpi.QRS_Detection(raw_sig, fs = fs_inner)
-
+    # dpi = DPI(debug_info = dict())
+    #r_list = dpi.QRS_Detection(raw_sig, fs = fs_inner)
+    r_list=qrs_detector(raw_sig,fs=fs_inner)
     walk_results = Testing_random_walk_RR_batch(raw_sig, fs_inner, r_list, model_list, iterations = walker_iterations, stepsize = walker_stepsize)
-
     walk_results.extend(zip(r_list, ['R',] * len(r_list)))
     # walk_results.extend(Testing_QS(raw_sig, fs_inner, r_list))
     # Change result indexes according to sampling frequency
@@ -364,7 +365,7 @@ def Testing_random_walk_RR_batch(raw_sig, fs, qrs_locations, model_list, iterati
         seed_positions_dict[model_label] = list()
         confined_ranges_dict[model_label] = list()
 
-        for qrs_index in xrange(batch_qrs_index, min(len(qrs_locations), batch_qrs_index + batch_size)):
+        for qrs_index in xrange(batch_qrs_index+1, min(len(qrs_locations), batch_qrs_index + batch_size)):
             seed_position = None
             confined_range = None
 
@@ -412,7 +413,7 @@ def Testing_random_walk_RR_batch(raw_sig, fs, qrs_locations, model_list, iterati
         seed_positions_dict[model_label] = list()
         confined_ranges_dict[model_label] = list()
 
-        for qrs_index in xrange(batch_qrs_index, min(len(qrs_locations), batch_qrs_index + batch_size)):
+        for qrs_index in xrange(batch_qrs_index, min(len(qrs_locations)-1, batch_qrs_index + batch_size)):
             seed_position = None
             confined_range = None
 
@@ -444,7 +445,7 @@ def Testing_random_walk_RR_batch(raw_sig, fs, qrs_locations, model_list, iterati
         seed_positions_dict[model_label] = list()
         confined_ranges_dict[model_label] = list()
 
-        for qrs_index in xrange(batch_qrs_index, min(len(qrs_locations), batch_qrs_index + batch_size)):
+        for qrs_index in xrange(batch_qrs_index+1, min(len(qrs_locations), batch_qrs_index + batch_size)):
             seed_position = None
             confined_range = None
 
@@ -476,7 +477,7 @@ def Testing_random_walk_RR_batch(raw_sig, fs, qrs_locations, model_list, iterati
         seed_positions_dict[model_label] = list()
         confined_ranges_dict[model_label] = list()
 
-        for qrs_index, current_P in zip(xrange(batch_qrs_index, min(len(qrs_locations), batch_qrs_index + batch_size)), batch_P_list):
+        for qrs_index, current_P in zip(xrange(batch_qrs_index+1, min(len(qrs_locations), batch_qrs_index + batch_size)), batch_P_list):
             seed_position = None
             confined_range = None
 
@@ -509,7 +510,7 @@ def Testing_random_walk_RR_batch(raw_sig, fs, qrs_locations, model_list, iterati
         seed_positions_dict[model_label] = list()
         confined_ranges_dict[model_label] = list()
 
-        for qrs_index, current_P in zip(xrange(batch_qrs_index, min(len(qrs_locations), batch_qrs_index + batch_size)), batch_P_list):
+        for qrs_index, current_P in zip(xrange(batch_qrs_index+1, min(len(qrs_locations), batch_qrs_index + batch_size)), batch_P_list):
             seed_position = None
             confined_range = None
 
@@ -540,7 +541,7 @@ def Testing_random_walk_RR_batch(raw_sig, fs, qrs_locations, model_list, iterati
         seed_positions_dict[model_label] = list()
         confined_ranges_dict[model_label] = list()
 
-        for qrs_index in xrange(batch_qrs_index, min(len(qrs_locations), batch_qrs_index + batch_size)):
+        for qrs_index in xrange(batch_qrs_index, min(len(qrs_locations)-1, batch_qrs_index + batch_size)):
             seed_position = None
             confined_range = None
 
@@ -570,7 +571,7 @@ def Testing_random_walk_RR_batch(raw_sig, fs, qrs_locations, model_list, iterati
         seed_positions_dict[model_label] = list()
         confined_ranges_dict[model_label] = list()
 
-        for qrs_index, current_T in zip(xrange(batch_qrs_index, min(len(qrs_locations), batch_qrs_index + batch_size)), batch_T_list):
+        for qrs_index, current_T in zip(xrange(batch_qrs_index, min(len(qrs_locations)-1, batch_qrs_index + batch_size)), batch_T_list):
             seed_position = None
             confined_range = None
 
@@ -599,7 +600,7 @@ def Testing_random_walk_RR_batch(raw_sig, fs, qrs_locations, model_list, iterati
         seed_positions_dict[model_label] = list()
         confined_ranges_dict[model_label] = list()
 
-        for qrs_index, current_T in zip(xrange(batch_qrs_index, min(len(qrs_locations), batch_qrs_index + batch_size)), batch_T_list):
+        for qrs_index, current_T in zip(xrange(batch_qrs_index, min(len(qrs_locations)-1, batch_qrs_index + batch_size)), batch_T_list):
             seed_position = None
             confined_range = None
 
@@ -653,23 +654,23 @@ def GetModels(model_folder, pattern_file_name):
 
 
 
-def Test1():
+def Test1(raw_sig,fs):
     '''Test case1.'''
     import matplotlib.pyplot as plt
-    record_name = 'sel30'
-    fs = 250.0
-    from QTdata.loadQTdata import QTloader
-    qt = QTloader()
-    sig = qt.load(record_name)
-    raw_sig = sig['sig']
-    raw_sig = raw_sig[0:250 * 120]
+    # record_name = 'sel30'
+    # fs = 250.0
+    # from QTdata.loadQTdata import QTloader
+    # qt = QTloader()
+    # sig = qt.load(record_name)
+    # raw_sig = sig['sig']
+    # raw_sig = raw_sig[0:250 * 120]
 
-    model_folder = '/home/alex/LabGit/ECG_random_walk/randomwalk/data/Lw3Np4000'
-    pattern_file_name = '/home/alex/LabGit/ECG_random_walk/randomwalk/data/Lw3Np4000/random_pattern.json'
+    model_folder = '/home/chenbin/hyf/ECG_random_walk/rf_models'
+    pattern_file_name = '/home/chenbin/hyf/ECG_random_walk/rf_models/random_pattern.json'
     model_list = GetModels(model_folder, pattern_file_name)
     start_time = time.time()
     # results = Testing_random_walk(raw_sig, 250.0, r_list, model_list)
-    results = Testing(raw_sig, 250.0, model_list, walker_iterations = 100)
+    results = Testing(raw_sig, fs, model_list, walker_iterations = 100)
     print 'Testing time cost %f secs.' % (time.time() - start_time)
 
     samples_count = len(raw_sig)
@@ -681,18 +682,20 @@ def Test1():
     plt.plot(raw_sig, label = 'ECG')
     pos_list, label_list = zip(*results)
     labels = set(label_list)
+    convert={'R':'ro','Ronset':'r<','Roffset':'r>',
+             'P':'bo','Ponset':'b<','Poffset':'b>',
+             'T':'go','Tonset':'g<','Toffset':'g>'}
     for label in labels:
         pos_list = [int(x[0]) for x in results if x[1] == label]
         amp_list = [raw_sig[x] for x in pos_list]
-        plt.plot(pos_list, amp_list, 'o',
-                markersize = 15,
+        plt.plot(pos_list, amp_list, convert[label],
+                markersize = 10,
                 label = label)
-    plt.title(record_name)
     plt.grid(True)
     plt.legend()
     plt.show()
 
-def TestChanggeng(record_ind):
+def TestChanggeng(raw_sig,Fs):
     '''Test case1.'''
     def RunWalkerModel(walker_model, seed_positions, confined_ranges, feature_extractor):
         '''Run random walk detection model.
@@ -727,17 +730,10 @@ def TestChanggeng(record_ind):
 
     import matplotlib.pyplot as plt
     import random
-    fs = 250.0
-    from QTdata.loadQTdata import QTloader
-    from changgengLoader import ECGLoader
-
-    ecg = ECGLoader(500, current_folderpath)
-    record_name = ecg.P_faillist[record_ind]
-    sig = ecg.load(record_name)
-    raw_sig = sig[0]
     import scipy.signal
     # raw_sig = Denoise(raw_sig)
-    resampled_sig = scipy.signal.resample_poly(raw_sig, 1, 2)
+    fs=250.0
+    resampled_sig = scipy.signal.resample_poly(raw_sig, 1, int(Fs/fs))
     # plt.figure(1)
     # plt.plot(raw_sig, label = 'signal')
     # plt.plot(xrange(0, len(raw_sig), 2), resampled_sig, label = 'resmaple')
@@ -748,15 +744,15 @@ def TestChanggeng(record_ind):
 
     raw_sig = resampled_sig
 
-    model_folder = '/home/alex/LabGit/ECG_random_walk/randomwalk/data/Lw3Np4000/improved'
-    pattern_file_name = '/home/alex/LabGit/ECG_random_walk/randomwalk/data/Lw3Np4000/random_pattern.json'
+    model_folder = '/home/chenbin/hyf/ECG_random_walk/rf_models'
+    pattern_file_name = '/home/chenbin/hyf/ECG_random_walk/rf_models/random_pattern.json'
     model_list = GetModels(model_folder, pattern_file_name)
     start_time = time.time()
 
     # Start Testing
     results = list()
     # results = Testing_random_walk(raw_sig, 250.0, r_list, model_list)
-    # results = Testing(raw_sig, 250.0, model_list, walker_iterations = 200)
+    results = Testing(raw_sig, 250.0, model_list, walker_iterations = 200)
     feature_extractor = model_list[0][0].GetFeatureExtractor(raw_sig)
     for walker_model, bias, model_label in model_list:
         if model_label != 'P':
@@ -802,28 +798,31 @@ def TestChanggeng(record_ind):
                 label = label)
 
         # Plot path
-        for path, up_amplitude in zip(path_list, amp_list):
-            plt.plot(path, xrange(up_amplitude, up_amplitude - int(len(path) * 0.01) + 1, 0.01),'r', alpha = 0.43)
+        # for path, up_amplitude in zip(path_list, amp_list):
+        #     plt.plot(path, xrange(up_amplitude, up_amplitude - int(len(path) * 0.01) + 1, 0.01),'r', alpha = 0.43)
 
     # Plot failed test
-    fail_results = ecg.loadAnnot(record_name, target_label = 'P')
-    pos_list = [int(x[0] / 2) for x in fail_results if x[1] == 'P']
-    amp_list = [raw_sig[x] for x in pos_list]
-    plt.plot(pos_list, amp_list, 'x',
-            markersize = 15,
-            markeredgewidth = 5,
-            alpha = 0.5,
-            label = 'failed')
+    # fail_results = ecg.loadAnnot(record_name, target_label = 'P')
+    # pos_list = [int(x[0] / 2) for x in fail_results if x[1] == 'P']
+    # amp_list = [raw_sig[x] for x in pos_list]
+    # plt.plot(pos_list, amp_list, 'x',
+    #         markersize = 15,
+    #         markeredgewidth = 5,
+    #         alpha = 0.5,
+    #         label = 'failed')
 
-
-    plt.title(record_name)
     plt.grid(True)
     plt.legend()
     plt.show(block = False)
-    pdb.set_trace()
+    # pdb.set_trace()
 
 if __name__ == '__main__':
-    # Test1()
-    for record_ind in xrange(0, 12):
-        TestChanggeng(record_ind)
-
+    path = '/home/chenbin/hyf/ECG_random_walk/randomwalk/data'
+    files = os.listdir(path)
+    for file in files:
+        if file[-5:] == 'm.mat':
+            Fs = 500
+            matpath = os.path.join(path, file)
+            rawdata = sio.loadmat(matpath)
+            rawsig = np.squeeze(rawdata['II'])
+            Test1(rawsig,Fs)
