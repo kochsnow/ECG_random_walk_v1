@@ -365,7 +365,7 @@ def Testing_random_walk_RR_batch(raw_sig, fs, qrs_locations, model_list, iterati
         seed_positions_dict[model_label] = list()
         confined_ranges_dict[model_label] = list()
 
-        for qrs_index in xrange(batch_qrs_index, min(len(qrs_locations), batch_qrs_index + batch_size)):
+        for qrs_index in xrange(batch_qrs_index+1, min(len(qrs_locations), batch_qrs_index + batch_size)):
             seed_position = None
             confined_range = None
 
@@ -413,7 +413,7 @@ def Testing_random_walk_RR_batch(raw_sig, fs, qrs_locations, model_list, iterati
         seed_positions_dict[model_label] = list()
         confined_ranges_dict[model_label] = list()
 
-        for qrs_index in xrange(batch_qrs_index, min(len(qrs_locations), batch_qrs_index + batch_size)):
+        for qrs_index in xrange(batch_qrs_index, min(len(qrs_locations)-1, batch_qrs_index + batch_size)):
             seed_position = None
             confined_range = None
 
@@ -445,7 +445,7 @@ def Testing_random_walk_RR_batch(raw_sig, fs, qrs_locations, model_list, iterati
         seed_positions_dict[model_label] = list()
         confined_ranges_dict[model_label] = list()
 
-        for qrs_index in xrange(batch_qrs_index, min(len(qrs_locations), batch_qrs_index + batch_size)):
+        for qrs_index in xrange(batch_qrs_index+1, min(len(qrs_locations), batch_qrs_index + batch_size)):
             seed_position = None
             confined_range = None
 
@@ -477,7 +477,7 @@ def Testing_random_walk_RR_batch(raw_sig, fs, qrs_locations, model_list, iterati
         seed_positions_dict[model_label] = list()
         confined_ranges_dict[model_label] = list()
 
-        for qrs_index, current_P in zip(xrange(batch_qrs_index, min(len(qrs_locations), batch_qrs_index + batch_size)), batch_P_list):
+        for qrs_index, current_P in zip(xrange(batch_qrs_index+1, min(len(qrs_locations), batch_qrs_index + batch_size)), batch_P_list):
             seed_position = None
             confined_range = None
 
@@ -510,7 +510,7 @@ def Testing_random_walk_RR_batch(raw_sig, fs, qrs_locations, model_list, iterati
         seed_positions_dict[model_label] = list()
         confined_ranges_dict[model_label] = list()
 
-        for qrs_index, current_P in zip(xrange(batch_qrs_index, min(len(qrs_locations), batch_qrs_index + batch_size)), batch_P_list):
+        for qrs_index, current_P in zip(xrange(batch_qrs_index+1, min(len(qrs_locations), batch_qrs_index + batch_size)), batch_P_list):
             seed_position = None
             confined_range = None
 
@@ -541,7 +541,7 @@ def Testing_random_walk_RR_batch(raw_sig, fs, qrs_locations, model_list, iterati
         seed_positions_dict[model_label] = list()
         confined_ranges_dict[model_label] = list()
 
-        for qrs_index in xrange(batch_qrs_index, min(len(qrs_locations), batch_qrs_index + batch_size)):
+        for qrs_index in xrange(batch_qrs_index, min(len(qrs_locations)-1, batch_qrs_index + batch_size)):
             seed_position = None
             confined_range = None
 
@@ -571,7 +571,7 @@ def Testing_random_walk_RR_batch(raw_sig, fs, qrs_locations, model_list, iterati
         seed_positions_dict[model_label] = list()
         confined_ranges_dict[model_label] = list()
 
-        for qrs_index, current_T in zip(xrange(batch_qrs_index, min(len(qrs_locations), batch_qrs_index + batch_size)), batch_T_list):
+        for qrs_index, current_T in zip(xrange(batch_qrs_index, min(len(qrs_locations)-1, batch_qrs_index + batch_size)), batch_T_list):
             seed_position = None
             confined_range = None
 
@@ -600,7 +600,7 @@ def Testing_random_walk_RR_batch(raw_sig, fs, qrs_locations, model_list, iterati
         seed_positions_dict[model_label] = list()
         confined_ranges_dict[model_label] = list()
 
-        for qrs_index, current_T in zip(xrange(batch_qrs_index, min(len(qrs_locations), batch_qrs_index + batch_size)), batch_T_list):
+        for qrs_index, current_T in zip(xrange(batch_qrs_index, min(len(qrs_locations)-1, batch_qrs_index + batch_size)), batch_T_list):
             seed_position = None
             confined_range = None
 
