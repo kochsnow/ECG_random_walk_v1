@@ -11,6 +11,7 @@ import numpy as np
 
 from random_walker import RandomWalker
 from QTdata.loadQTdata import QTloader
+from feature_extractor.feature_extractor import ECGfeatures
 
 
 def Test1(target_label = 'P', num_training = 25):
@@ -121,6 +122,183 @@ def TrainingModels(target_label, model_file_name, training_list):
     walker.save_model(model_file_name)
     print 'Serializing model time cost %f' % (time.time() - start_time)
 
+
+def test4():
+    import scipy.io as sio
+    import json
+    import codecs
+    curfolder = os.path.split(os.path.realpath(__file__))[0]
+    tranning_list = list()
+    # files=os.listdir(os.path.join(curfolder,'data'))
+    SIG = np.zeros(len(tranning_list))
+    KEYP = np.zeros(len(tranning_list))
+    for i in range(len(tranning_list)):
+        x = tranning_list[i]
+        datapath = os.path.join(curfolder, 'data', x, '.mat')
+        keypointpath = os.path.join(curfolder, 'data', x, '.json')
+        rawdata = sio.loadmat(datapath)
+        rawsig = np.squeeze(rawdata['II'])
+        with codecs.open(keypointpath, 'rb', encoding='utf-8') as fout:
+            keypoint = json.load(fout)
+        SIG[i] = rawsig
+        KEYP[i] = keypoint
+    for target_label in ['P', 'Ponset', 'Poffset', 'T', 'Tonset', 'Toffset', 'Ronset', 'Roffset']:
+        walker = RandomWalker(target_label=target_label, random_forest_config=dict(), random_pattern_file_name=None)
+        for i in range(len(tranning_list)):
+            annot_list = KEYP[i][target_label]
+            # train_indexs=walker.gaussian_training_sampling(annot_list,draw_per_annotation=3,max_distance=100)
+            rawsig = SIG[i]
+            walker.collect_training_data(rawsig, annot_list)
+        walker.training()
+        walker.save_model(model_file_name=os.path.join(curfolder, 'data', 'models', target_label, '.mdl'))
+    test_list = list()
+    SIG1 = np.zeros(len(test_list))
+    from qrs_detection_jerry import qrs_detector
+    import scipy.signal
+    Fs = 500
+    for j in range(len(test_list)):
+        x = test_list[j]
+        datapath = os.path.join(curfolder, 'data', x, '.mat')
+        rawdata = sio.loadmat(datapath)
+        rawsig = np.squeeze(rawdata['II'])
+        re_rawsig = scipy.signal.resample_poly(rawsig, 1, int(Fs / 250.0))
+        r_list = [int(x * Fs / 250.0) for x in qrs_detector(re_rawsig, fs=250)]
+
+        results=list()
+        target_label = 'Ronset'
+        walker = RandomWalker(target_label=target_label, random_forest_config=dict(), random_pattern_file_name=None)
+        walker.load_model(model_file_name=os.path.join(curfolder, 'data', 'models', target_label, '.mdl'))
+        configuration_info = walker.get_configuration()
+        feature_extractor = ECGfeatures(rawsig=rawsig, configuration_info=configuration_info)
+        for i in range(1,len(r_list)):
+            seed_position=r_list[i]
+            confined_range=[r_list[i-1],r_list[i]]
+            temp=walker.testing_walk_extractor(feature_extractor=feature_extractor,seed_position=seed_position,iterations=100,stepsize=4,
+                                      confined_range=confined_range)
+            pos,value=zip(*temp)
+            results.append([int(np.mean(pos[len(pos)/2:])),target_label])
+
+        target_label = 'Roffset'
+        walker = RandomWalker(target_label=target_label, random_forest_config=dict(), random_pattern_file_name=None)
+        walker.load_model(model_file_name=os.path.join(curfolder, 'data', 'models', target_label, '.mdl'))
+        configuration_info = walker.get_configuration()
+        feature_extractor = ECGfeatures(rawsig=rawsig, configuration_info=configuration_info)
+        for i in range(0, len(r_list)-1):
+            seed_position = r_list[i]
+            confined_range = [r_list[i], r_list[i+1]]
+            temp = walker.testing_walk_extractor(feature_extractor=feature_extractor, seed_position=seed_position,
+                                                 iterations=100, stepsize=4,
+                                                 confined_range=confined_range)
+            pos, value = zip(*temp)
+            results.append([int(np.mean(pos[len(pos) / 2:])),target_label])
+
+        target_label = 'P'
+        Plist=list()
+        walker = RandomWalker(target_label=target_label, random_forest_config=dict(), random_pattern_file_name=None)
+        walker.load_model(model_file_name=os.path.join(curfolder, 'data', 'models', target_label, '.mdl'))
+        configuration_info = walker.get_configuration()
+        feature_extractor = ECGfeatures(rawsig=rawsig, configuration_info=configuration_info)
+        for i in range(1, len(r_list)):
+            seed_position = r_list[i]
+            confined_range = [r_list[i - 1], r_list[i]]
+            temp = walker.testing_walk_extractor(feature_extractor=feature_extractor, seed_position=seed_position,
+                                                 iterations=100, stepsize=4,
+                                                 confined_range=confined_range)
+            pos, value = zip(*temp)
+            Plist.append([int(np.mean(pos[len(pos) / 2:])),target_label])
+            results.append([int(np.mean(pos[len(pos) / 2:])),target_label])
+
+        target_label = 'Ponset'
+        walker = RandomWalker(target_label=target_label, random_forest_config=dict(), random_pattern_file_name=None)
+        walker.load_model(model_file_name=os.path.join(curfolder, 'data', 'models', target_label, '.mdl'))
+        configuration_info = walker.get_configuration()
+        feature_extractor = ECGfeatures(rawsig=rawsig, configuration_info=configuration_info)
+        for i in range(1, len(r_list)):
+            seed_position = Plist[i]
+            confined_range = [r_list[i - 1], Plist[i]]
+            temp = walker.testing_walk_extractor(feature_extractor=feature_extractor, seed_position=seed_position,
+                                                 iterations=100, stepsize=4,
+                                                 confined_range=confined_range)
+            pos, value = zip(*temp)
+            results.append([int(np.mean(pos[len(pos) / 2:])), target_label])
+
+        target_label = 'Poffset'
+        walker = RandomWalker(target_label=target_label, random_forest_config=dict(), random_pattern_file_name=None)
+        walker.load_model(model_file_name=os.path.join(curfolder, 'data', 'models', target_label, '.mdl'))
+        configuration_info = walker.get_configuration()
+        feature_extractor = ECGfeatures(rawsig=rawsig, configuration_info=configuration_info)
+        for i in range(1, len(r_list)):
+            seed_position = r_list[i]
+            confined_range = [Plist[i],r_list[i]]
+            temp = walker.testing_walk_extractor(feature_extractor=feature_extractor, seed_position=seed_position,
+                                                 iterations=100, stepsize=4,
+                                                 confined_range=confined_range)
+            pos, value = zip(*temp)
+            results.append([int(np.mean(pos[len(pos) / 2:])), target_label])
+
+        target_label = 'T'
+        Tlist = list()
+        walker = RandomWalker(target_label=target_label, random_forest_config=dict(), random_pattern_file_name=None)
+        walker.load_model(model_file_name=os.path.join(curfolder, 'data', 'models', target_label, '.mdl'))
+        configuration_info = walker.get_configuration()
+        feature_extractor = ECGfeatures(rawsig=rawsig, configuration_info=configuration_info)
+        for i in range(0, len(r_list)-1):
+            seed_position = r_list[i]
+            confined_range = [r_list[i], r_list[i+1]]
+            temp = walker.testing_walk_extractor(feature_extractor=feature_extractor, seed_position=seed_position,
+                                                 iterations=100, stepsize=4,
+                                                 confined_range=confined_range)
+            pos, value = zip(*temp)
+            Tlist.append([int(np.mean(pos[len(pos) / 2:])), target_label])
+            results.append([int(np.mean(pos[len(pos) / 2:])), target_label])
+
+        target_label = 'Tonset'
+        walker = RandomWalker(target_label=target_label, random_forest_config=dict(), random_pattern_file_name=None)
+        walker.load_model(model_file_name=os.path.join(curfolder, 'data', 'models', target_label, '.mdl'))
+        configuration_info = walker.get_configuration()
+        feature_extractor = ECGfeatures(rawsig=rawsig, configuration_info=configuration_info)
+        for i in range(0, len(r_list)-1):
+            seed_position = Tlist[i]
+            confined_range = [r_list[i], Tlist[i]]
+            temp = walker.testing_walk_extractor(feature_extractor=feature_extractor, seed_position=seed_position,
+                                                 iterations=100, stepsize=4,
+                                                 confined_range=confined_range)
+            pos, value = zip(*temp)
+            results.append([int(np.mean(pos[len(pos) / 2:])), target_label])
+
+        target_label = 'Toffset'
+        walker = RandomWalker(target_label=target_label, random_forest_config=dict(), random_pattern_file_name=None)
+        walker.load_model(model_file_name=os.path.join(curfolder, 'data', 'models', target_label, '.mdl'))
+        configuration_info = walker.get_configuration()
+        feature_extractor = ECGfeatures(rawsig=rawsig, configuration_info=configuration_info)
+        for i in range(0, len(r_list) - 1):
+            seed_position = Tlist[i]
+            confined_range = [Tlist[i],r_list[i+1]]
+            temp = walker.testing_walk_extractor(feature_extractor=feature_extractor, seed_position=seed_position,
+                                                 iterations=100, stepsize=4,
+                                                 confined_range=confined_range)
+            pos, value = zip(*temp)
+            results.append([int(np.mean(pos[len(pos) / 2:])), target_label])
+
+        plt.figure(1)
+        plt.plot(rawsig, label='ECG')
+        pos_list, label_list = zip(*results)
+        labels = set(label_list)
+        convert = {'R': 'ro', 'Ronset': 'r<', 'Roffset': 'r>',
+                   'P': 'bo', 'Ponset': 'b<', 'Poffset': 'b>',
+                   'T': 'go', 'Tonset': 'g<', 'Toffset': 'g>'}
+        for label in labels:
+            pos_list = [int(x[0]) for x in results if x[1] == label]
+            amp_list = [rawsig[x] for x in pos_list]
+            plt.plot(pos_list, amp_list, convert[label],
+                     markersize=6,
+                     label=label)
+        plt.grid(True)
+        plt.legend()
+        plt.show()
+
+        # configuration_info=walker.get_configuration()
+        # feature_extractor=ECGfeatures(rawsig,configuration_info=configuration_info,wavelet='db2')
 
 
 
