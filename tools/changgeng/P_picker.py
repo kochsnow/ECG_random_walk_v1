@@ -39,16 +39,18 @@ debugmod = True
 
 def getRecordList(target_label = 'P'):
     '''Return list of jsonIDs from local dir.'''
-    jsonIDs = glob.glob(os.path.join(current_folderpath, 'path_info', target_label, '*.json'))
+    jsonIDs = glob.glob(os.path.join(current_folderpath, '*.mat'))
     jsonIDs = [os.path.split(x)[-1] for x in jsonIDs]
+    jsonIDs = [os.path.splitext(x)[0] for x in jsonIDs]
 
 
     # Skip records with annotations
     annot_jsonIDs = glob.glob(os.path.join(current_folderpath, 'labels', target_label, '*.json'))
     annot_jsonIDs = [os.path.split(x)[-1] for x in annot_jsonIDs]
+    annot_jsonIDs = [os.path.splitext(x)[0] for x in annot_jsonIDs]
     jsonIDs = list(set(jsonIDs) - set(annot_jsonIDs))
 
-    return [x.split('.')[0] for x in jsonIDs]
+    return jsonIDs
 
 # ECG data from changgeng
 class ECGLoader(object):
@@ -60,7 +62,7 @@ class ECGLoader(object):
 
     def load(self, record_index):
         '''Return loaded signal info.'''
-        return self.getSignal('%s.json' % self.P_faillist[record_index], 'II')
+        return self.getSignal('%s.mat' % self.P_faillist[record_index], 'II')
 
     def load_annotations(self, record_index, target_label = 'P'):
         '''Return auto-computed annotations.'''
@@ -87,30 +89,28 @@ class ECGLoader(object):
             return zip(annot_list, [target_label,] * len(annot_list))
         
 
-    def getSignal(self, jsonfilename, leadname):
+    def getSignal(self, recID, leadname):
         '''Get fangchan signal.'''
         import json
         import codecs
         import subprocess
         import scipy.io as sio
 
-        matinfojson_filename = os.path.join(current_folderpath, 'path_info', 'P', '%s' % jsonfilename)
-        with codecs.open(matinfojson_filename, 'r', 'utf8') as fin:
-            data = json.load(fin)
-
+        matpath = os.path.join(current_folderpath, 'path_info', 'P', '%s.mat' % recID)
+        # with codecs.open(matinfojson_filename, 'r', 'utf8') as fin:
+        #     data = json.load(fin)
+        data=sio.loadmat(matpath)
         # mat_rhythm is the data
         dlist = data
-        matpath = dlist['mat_rhythm']
         diagnosis_text = dlist['diagnose']
+        # mat_file_name = os.path.split(matpath)[-1]
+        # save_mat_filepath = os.path.join(current_folderpath, 'data', mat_file_name)
+        # if (os.path.exists(save_mat_filepath) == False):
+        #     subprocess.call(['scp', 'xinhe:%s' % matpath, save_mat_filepath])
+        # matdata = sio.loadmat(save_mat_filepath)
+        raw_sig = np.squeeze(dlist[leadname])
 
-        mat_file_name = os.path.split(matpath)[-1]
-        save_mat_filepath = os.path.join(current_folderpath, 'data', mat_file_name)
-        if (os.path.exists(save_mat_filepath) == False):
-            subprocess.call(['scp', 'xinhe:%s' % matpath, save_mat_filepath])
-        matdata = sio.loadmat(save_mat_filepath)
-        raw_sig = np.squeeze(matdata[leadname])
-
-        return [raw_sig, diagnosis_text, mat_file_name, dlist['II_label_pos']['P']]
+        return [raw_sig, diagnosis_text]
 
 class whiteSamplePicker:
     def __init__(self, target_label = 'P'):
@@ -148,7 +148,7 @@ class PointBrowser(object):
     """
 
 
-    def __init__(self, fig, ax, start_index, target_label):
+    def __init__(self, fig, ax, start_index, target_label,annot_list):
         self.fig = fig
         self.ax = ax
         self.SaveFolder = os.path.join(current_folderpath, 'results')
@@ -161,6 +161,7 @@ class PointBrowser(object):
         self.recInd = start_index
         self.reloadData()
         self.target_label = target_label
+        self.expLabels=list()
         # self.expLabels = self.QTdb.getexpertlabeltuple(self.diag_text)
 
         tableau20 = [(31, 119, 180), (174, 199, 232), (255, 127, 14), (255, 187, 120),    
@@ -175,21 +176,22 @@ class PointBrowser(object):
         # Mark list
         self.poslist = []
         self.totalWhiteCount = 0
+        self.annot_list=annot_list
 
     def reloadData(self):
         '''Refresh data according to self.recInd'''
-        raw_sig, diag_text, mat_file_name, target_poslist = self.ecgloader.load(self.recInd)
+        raw_sig, diag_text = self.ecgloader.load(self.recInd)
         self.diag_text = diag_text
-        self.mat_file_name = mat_file_name
+        # self.mat_file_name = mat_file_name
         self.rawSig = raw_sig
 
         # Get QRS locations
-        from dpi.DPI_QRS_Detector import DPI_QRS_Detector as DPI
-        dpi = DPI()
-        print 'Testing QRS locations ...'
-        results = dpi.QRS_Detection(raw_sig, fs = self.ecgloader.fs)
-        self.expLabels = zip(results, ['R',] * len(results))
-        self.expLabels.extend(self.ecgloader.load_annotations(self.recInd))
+        # from dpi.DPI_QRS_Detector import DPI_QRS_Detector as DPI
+        # dpi = DPI()
+        # print 'Testing QRS locations ...'
+        # results = dpi.QRS_Detection(raw_sig, fs = self.ecgloader.fs)
+        # self.expLabels = zip(results, ['R',] * len(results))
+        # self.expLabels.extend(self.ecgloader.load_annotations(self.recInd))
 
     def onpress(self, event):
         if event.key not in ('n', 'p',' ','x','a','d'):
@@ -227,19 +229,13 @@ class PointBrowser(object):
 
         self.update()
 
-    def saveWhiteMarkList2Json(self):
+    def saveWhiteMarkList2Json(self,savepath=current_folderpath):
         import codecs
         changgengID = self.ecgloader.P_faillist[self.recInd]
-        with codecs.open(os.path.join(current_folderpath, 'labels', self.target_label, '%s.json' % (changgengID)), 'w', 'utf8') as fout:
-            result_info = dict(
-                    mat_file_name = self.mat_file_name,
-                    diag_text = self.diag_text,
-                    database = 'changgeng',
-                    poslist = self.poslist,
-                    expertLabels = self.expLabels,
-                    type = self.target_label)
+        with codecs.open(os.path.join(savepath, 'labels', self.target_label, '%s.json' % (changgengID)), 'w', 'utf8') as fout:
+            result_info = {'label':self.target_label,'poslist':self.poslist}
             json.dump(result_info, fout, indent = 4, sort_keys = True, ensure_ascii = False)
-            print 'Json file %s for record %s saved.' % (str(changgengID), self.mat_file_name)
+            print 's% Json file for record %s saved.' % (self.target_label,str(changgengID))
 
     def clearWhiteMarkList(self):
         self.poslist = []
@@ -258,7 +254,7 @@ class PointBrowser(object):
                 markersize = 22,
                 markeredgewidth = 4,
                 alpha = 0.9,
-                label = 'Tonset')
+                label = self.target_label)
         self.ax.set_xlim(pos - 1000, pos + 1000)
 
         
@@ -331,6 +327,12 @@ class PointBrowser(object):
 
         self.fig.canvas.draw()
 
+    # def next_record(self):
+    #     self.recInd += 1
+    #     if self.recInd >= self.ecgloader.getSize('fwave.json'):
+    #         return False
+    #     self.reloadData()
+    #     return True
     def next_record(self):
         self.recInd += 1
         if self.recInd >= self.ecgloader.getSize('fwave.json'):
