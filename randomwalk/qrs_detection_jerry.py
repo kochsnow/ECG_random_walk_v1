@@ -14,7 +14,7 @@ def pre_sig(rawsig):
     # fs=250
     N=8
     wt_sig=DTCWT(lead_signal=rawsig,N=8)
-    qrs_sig=np.sum(abs(wt_sig[2:7,:]),axis=0)
+    qrs_sig=np.sum(abs(wt_sig[5:7,:]),axis=0)
     return qrs_sig
 
 def DTCWT(lead_signal, N=8):
