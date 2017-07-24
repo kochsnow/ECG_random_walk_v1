@@ -18,7 +18,7 @@ class RandomWalker(object):
     '''
     def __init__(self, target_label = 'P',
             random_forest_config = dict(),
-            random_pattern_file_name = None):
+            random_pattern_file_name = None,fs=250.0):
         '''This class only focus on a single label.'''
         self.target_label = target_label
         self.regressor = None
@@ -31,6 +31,7 @@ class RandomWalker(object):
         # For batch testing.
         self.position_bucket = list()
         self.confined_range_bucket = list()
+        self.fs=fs
 
     def gaussian_training_sampling(self,
             pos_list,
@@ -63,7 +64,7 @@ class RandomWalker(object):
         current_file_path = os.path.realpath(__file__)
         current_folder = os.path.dirname(current_file_path)
         conf = dict(
-                fs = 250,
+                fs = self.fs,
                 winlen_ratio_to_fs = 3,
                 WT_LEVEL = 9
                 )
@@ -216,6 +217,7 @@ class RandomWalker(object):
         results = list()
         pos_list = list()
         pos_dict = dict()
+        direction_list=list()
         # Benchmarking
         feature_collecting_time_cost = 0
         predict_time_cost = 0
@@ -247,6 +249,8 @@ class RandomWalker(object):
             threshold = (value + 1.0) / 2.0
             # threshold = self.sigmod_function(threshold)
             direction = -1.0 if random.ranf() >= threshold else 1.0
+            # direction = 1.0 if threshold>0.5 else -1.0
+            direction_list.append(direction)
             pos += int(direction * stepsize)
 
 

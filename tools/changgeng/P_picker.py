@@ -39,7 +39,7 @@ debugmod = True
 
 def getRecordList(target_label = 'P'):
     '''Return list of jsonIDs from local dir.'''
-    jsonIDs = glob.glob(os.path.join(current_folderpath, '*.mat'))
+    jsonIDs = glob.glob(os.path.join(current_folderpath,'sig', '*.mat'))
     jsonIDs = [os.path.split(x)[-1] for x in jsonIDs]
     jsonIDs = [os.path.splitext(x)[0] for x in jsonIDs]
 
@@ -58,11 +58,11 @@ class ECGLoader(object):
         '''Loader for changgeng data.'''
         self.fs = fs
         # self.P_faillist = [8999,8374,6659, 6655,6059,5395,1401,1269,737,75,9524,9476]
-        self.P_faillist = getRecordList()
+        self.P_faillist = getRecordList(target_label=target_label)
 
     def load(self, record_index):
         '''Return loaded signal info.'''
-        return self.getSignal('%s.mat' % self.P_faillist[record_index], 'II')
+        return self.getSignal(self.P_faillist[record_index], 'II')
 
     def load_annotations(self, record_index, target_label = 'P'):
         '''Return auto-computed annotations.'''
@@ -96,13 +96,14 @@ class ECGLoader(object):
         import subprocess
         import scipy.io as sio
 
-        matpath = os.path.join(current_folderpath, 'path_info', 'P', '%s.mat' % recID)
+        matpath = os.path.join(current_folderpath, 'sig', '%s.mat' % recID)
         # with codecs.open(matinfojson_filename, 'r', 'utf8') as fin:
         #     data = json.load(fin)
         data=sio.loadmat(matpath)
         # mat_rhythm is the data
         dlist = data
-        diagnosis_text = dlist['diagnose']
+        # diagnosis_text = dlist['diagnose']
+        diagnosis_text=''
         # mat_file_name = os.path.split(matpath)[-1]
         # save_mat_filepath = os.path.join(current_folderpath, 'data', mat_file_name)
         # if (os.path.exists(save_mat_filepath) == False):
@@ -148,7 +149,7 @@ class PointBrowser(object):
     """
 
 
-    def __init__(self, fig, ax, start_index, target_label,annot_list):
+    def __init__(self, fig, ax, start_index, target_label):
         self.fig = fig
         self.ax = ax
         self.SaveFolder = os.path.join(current_folderpath, 'results')
@@ -176,7 +177,6 @@ class PointBrowser(object):
         # Mark list
         self.poslist = []
         self.totalWhiteCount = 0
-        self.annot_list=annot_list
 
     def reloadData(self):
         '''Refresh data according to self.recInd'''
@@ -203,6 +203,10 @@ class PointBrowser(object):
             self.clearWhiteMarkList()
 
             # clear Marker List
+            self.reDraw()
+        elif event.key == 'p':
+            self.next_record()
+            self.clearWhiteMarkList()
             self.reDraw()
             return None
         elif event.key == ' ':
@@ -232,10 +236,13 @@ class PointBrowser(object):
     def saveWhiteMarkList2Json(self,savepath=current_folderpath):
         import codecs
         changgengID = self.ecgloader.P_faillist[self.recInd]
-        with codecs.open(os.path.join(savepath, 'labels', self.target_label, '%s.json' % (changgengID)), 'w', 'utf8') as fout:
+        savefolder=os.path.join(savepath,'labels', self.target_label)
+        if os.path.isdir(savefolder)==False:
+            os.makedirs(savefolder)
+        with codecs.open(os.path.join(savefolder, '%s.json' % (changgengID)), 'w', 'utf8') as fout:
             result_info = {'label':self.target_label,'poslist':self.poslist}
             json.dump(result_info, fout, indent = 4, sort_keys = True, ensure_ascii = False)
-            print 's% Json file for record %s saved.' % (self.target_label,str(changgengID))
+            print 'Json file for record %s saved.' % (str(changgengID))
 
     def clearWhiteMarkList(self):
         self.poslist = []
@@ -300,7 +307,7 @@ class PointBrowser(object):
         # ====================================
         # load ECG signal
 
-        ax.set_title(u'changgeng{} (Index = {}) target [{}]'.format(self.diag_text,self.recInd, self.target_label))
+        ax.set_title(u'changgeng{} (Index = {}) target [{}]'.format(self.diag_text,self.ecgloader.P_faillist[self.recInd], self.target_label))
         ax.plot(self.rawSig, picker=5)  # 5 points tolerance
         # plot Expert Labels
         self.plotExpertLabels(ax)
@@ -393,7 +400,9 @@ def TEST_loader():
     plt.show()
     
 if __name__ == '__main__':
-    tool = whiteSamplePicker(target_label = 'P')
-    tool.show(start_index = 0)
+    # for target_label in ['R','Ronset','Roffset','P','Ponset','Poffset','T','Tonset','Toffset']:
+    for target_label in ['Toffset']:
+        tool = whiteSamplePicker(target_label = target_label)
+        tool.show(start_index = 0)
     # TEST_loader()
 

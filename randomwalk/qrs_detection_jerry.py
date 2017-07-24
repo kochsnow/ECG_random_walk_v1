@@ -14,7 +14,7 @@ def pre_sig(rawsig):
     # fs=250
     N=8
     wt_sig=DTCWT(lead_signal=rawsig,N=8)
-    qrs_sig=np.sum(abs(wt_sig[2:7,:]),axis=0)
+    qrs_sig=np.sum(abs(wt_sig[6:7,:]),axis=0)
     return qrs_sig
 
 def DTCWT(lead_signal, N=8):
@@ -83,18 +83,19 @@ def qrs_detector(re_rawsig,fs=250):
 
 
 if __name__ == '__main__':
+   import glob
    path='/home/chenbin/hyf/Sourecode/jerry/jerry_py'
-   files=os.listdir(path)
+   files=glob.glob(os.path.join(path,'*m.mat'))
+   files.append('/home/chenbin/桌面/labwork/ECG/rawdata.mat')
    for file in files:
-       if file[-5:]=='m.mat':
-           Fs=500
-           matpath=os.path.join(path,file)
-           rawdata=sio.loadmat(matpath)
-           rawsig=np.squeeze(rawdata['II'])
-           re_rawsig=signal.resample(rawsig,int(len(rawsig)/float(Fs)*250))
-           re_loc_qrs=qrs_detector(re_rawsig)
-           loc_qrs=[int(x*Fs/250.0) for x in re_loc_qrs]
-           amp_qrs=rawsig[np.array(loc_qrs)]
-           plt.plot(rawsig,'r')
-           plt.plot(loc_qrs,amp_qrs,'bo')
-           plt.show()
+        Fs=500
+        matpath=file
+        rawdata=sio.loadmat(matpath)
+        rawsig=np.squeeze(rawdata['II'])
+        re_rawsig=signal.resample(rawsig,int(len(rawsig)/float(Fs)*250))
+        re_loc_qrs=qrs_detector(re_rawsig)
+        loc_qrs=[int(x*Fs/250.0) for x in re_loc_qrs]
+        amp_qrs=rawsig[np.array(loc_qrs)]
+        plt.plot(rawsig,'r')
+        plt.plot(loc_qrs,amp_qrs,'bo')
+        plt.show()

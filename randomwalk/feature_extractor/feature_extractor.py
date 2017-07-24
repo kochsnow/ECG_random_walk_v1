@@ -95,7 +95,7 @@ class ECGfeatures:
         # Return windowed sig 
         segment = []
         left_bound = x - int(fixed_window_length / 2)
-        right_bound = left_bound + fixed_window_length
+        right_bound = left_bound + int(fixed_window_length)
         if right_bound <= 0:
             segment = [sig[0], ] * fixed_window_length
         elif left_bound >= len(sig):
