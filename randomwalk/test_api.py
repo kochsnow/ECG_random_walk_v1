@@ -85,12 +85,15 @@ def Testing(raw_sig_in, fs, model_list, walker_iterations = 100, walker_stepsize
     # dpi = DPI(debug_info = dict())
     #r_list = dpi.QRS_Detection(raw_sig, fs = fs_inner)
     r_list=qrs_detector(raw_sig,fs=fs_inner)
-    walk_results = Testing_random_walk_RR_batch(raw_sig, fs_inner, r_list, model_list, iterations = walker_iterations, stepsize = walker_stepsize)
-    walk_results.extend(zip(r_list, ['R',] * len(r_list)))
-    # walk_results.extend(Testing_QS(raw_sig, fs_inner, r_list))
-    # Change result indexes according to sampling frequency
-    walk_results = [[x[0] / 250.0 * fs, x[1]] for x in walk_results]
-    return walk_results
+    if len(r_list)>1:
+        walk_results = Testing_random_walk_RR_batch(raw_sig, fs_inner, r_list, model_list, iterations = walker_iterations, stepsize = walker_stepsize)
+        walk_results.extend(zip(r_list, ['R',] * len(r_list)))
+        # walk_results.extend(Testing_QS(raw_sig, fs_inner, r_list))
+        # Change result indexes according to sampling frequency
+        walk_results = [[x[0] / 250.0 * fs, x[1]] for x in walk_results]
+        return walk_results
+    else:
+        return 'qrs detection failed'
 
 def Testing_QS(raw_sig, fs, r_list):
     '''Detect positions of Q and S based on given R position.'''
