@@ -75,6 +75,7 @@ class RandomWalker(object):
     def collect_training_data(self, raw_sig, expert_annotations):
         '''Incrementally collect training samples X and training values y.'''
         annot_pos_list = [x[0] for x in expert_annotations if x[1] == self.target_label]
+        print len(annot_pos_list)
         training_indexes = self.gaussian_training_sampling(annot_pos_list)
 
         configuration_info = self.get_configuration()

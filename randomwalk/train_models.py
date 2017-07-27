@@ -127,10 +127,10 @@ def TrainingModels(target_label, model_file_name, training_list):
 
 
 if __name__ == '__main__':
-    label_list = ['P', 'Ponset', 'Poffset',
-            'T', 'Toffset',
-            'Ronset', 'R', 'Roffset']
-    root_folder = 'data/db2WT'
+    # label_list = ['P', 'Ponset', 'Poffset',
+    #         'T', 'Toffset','Ronset', 'R', 'Roffset']
+    label_list=['Tonset']
+    root_folder = '/home/chenbin/hyf/ECG_random_walk/randomwalk/data/db2WT'
     # Refresh training list
     num_training = 105
     trianing_list = list()

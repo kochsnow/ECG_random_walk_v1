@@ -311,7 +311,7 @@ def Testing_random_walk_RR_batch(raw_sig, fs, qrs_locations, model_list, iterati
     walker_count = 0
     Tnew_list = list()
 
-    def RunWalkerModel(walker_model, seed_positions, confined_ranges):
+    def RunWalkerModel(walker_model, seed_positions, confined_ranges,iterations=100,stepsize=4):
         '''Run random walk detection model.
         Input:
             walker_model: random walk regressor for a certain label.
@@ -328,7 +328,7 @@ def Testing_random_walk_RR_batch(raw_sig, fs, qrs_locations, model_list, iterati
         start_time = time.time()
 
         # Second, Testing all prepared positions
-        path_list, scores_list = walker_model.runPreparedTesting(feature_extractor)
+        path_list, scores_list = walker_model.runPreparedTesting(feature_extractor,iterations=iterations,stepsize=stepsize)
 
         predict_position_list = list()
         for path in path_list:
@@ -368,7 +368,7 @@ def Testing_random_walk_RR_batch(raw_sig, fs, qrs_locations, model_list, iterati
         seed_positions_dict[model_label] = list()
         confined_ranges_dict[model_label] = list()
 
-        for qrs_index in xrange(batch_qrs_index+1, min(len(qrs_locations), batch_qrs_index + batch_size)):
+        for qrs_index in xrange(batch_qrs_index, min(len(qrs_locations), batch_qrs_index + batch_size)):
             seed_position = None
             confined_range = None
 
@@ -383,14 +383,14 @@ def Testing_random_walk_RR_batch(raw_sig, fs, qrs_locations, model_list, iterati
             if qrs_index + 1 < len(qrs_locations):
                 right_QRS_bound = qrs_locations[qrs_index + 1]
 
-            if qrs_index == 0:
-                walker_model, bias = model_dict[model_label]
-                bias = int(float(fs) * bias)
-
-                confined_range = [left_QRS_bound, R_pos]
-                confined_ranges_dict[model_label].append(confined_range)
-                seed_position = bias + R_pos
-                seed_positions_dict[model_label].append(seed_position)
+            # if qrs_index == 0:
+            #     walker_model, bias = model_dict[model_label]
+            #     bias = int(float(fs) * bias)
+            #
+            #     confined_range = [left_QRS_bound, R_pos]
+            #     confined_ranges_dict[model_label].append(confined_range)
+            #     seed_position = bias + R_pos
+            #     seed_positions_dict[model_label].append(seed_position)
                 # current_Ronset = RunWalkerModel(walker_model, R_pos + bias, confined_range)
             # Get back_Ronset
             if qrs_index + 1 < len(qrs_locations):
@@ -596,7 +596,7 @@ def Testing_random_walk_RR_batch(raw_sig, fs, qrs_locations, model_list, iterati
             seed_positions_dict[model_label].append(seed_position)
         # Start testing
         walker_model, bias = model_dict[model_label]
-        batch_Tonset_list = RunWalkerModel(walker_model, seed_positions_dict[model_label], confined_ranges_dict[model_label])
+        batch_Tonset_list = RunWalkerModel(walker_model, seed_positions_dict[model_label], confined_ranges_dict[model_label],iterations=100,stepsize=2)
 
         # Testing Toffset
         model_label = 'Toffset'
@@ -668,12 +668,14 @@ def Test1(raw_sig,fs):
     # raw_sig = sig['sig']
     # raw_sig = raw_sig[0:250 * 120]
 
-    model_folder = '/home/chenbin/hyf/ECG_random_walk/rf_models'
-    pattern_file_name = '/home/chenbin/hyf/ECG_random_walk/rf_models/random_pattern.json'
+    # model_folder = '/home/chenbin/hyf/ECG_random_walk/rf_models'
+    # pattern_file_name = '/home/chenbin/hyf/ECG_random_walk/rf_models/random_pattern.json'
+    model_folder = '/home/chenbin/hyf/ECG_random_walk/randomwalk/data/db2WT'
+    pattern_file_name = '/home/chenbin/hyf/ECG_random_walk/randomwalk/data/db2WT/random_pattern.json'
     model_list = GetModels(model_folder, pattern_file_name)
     start_time = time.time()
     # results = Testing_random_walk(raw_sig, 250.0, r_list, model_list)
-    results = Testing(raw_sig, fs, model_list, walker_iterations = 100)
+    results = Testing(raw_sig, fs, model_list, walker_iterations = 200,walker_stepsize=4)
     print 'Testing time cost %f secs.' % (time.time() - start_time)
 
     samples_count = len(raw_sig)
@@ -747,6 +749,8 @@ def TestChanggeng(raw_sig,Fs):
 
     raw_sig = resampled_sig
 
+    # model_folder = '/home/chenbin/hyf/ECG_random_walk/randomwalk/data/models'
+    # pattern_file_name = '/home/chenbin/hyf/ECG_random_walk/randomwalk/data/models/random_pattern.json'
     model_folder = '/home/chenbin/hyf/ECG_random_walk/rf_models'
     pattern_file_name = '/home/chenbin/hyf/ECG_random_walk/rf_models/random_pattern.json'
     model_list = GetModels(model_folder, pattern_file_name)
@@ -820,12 +824,23 @@ def TestChanggeng(raw_sig,Fs):
     # pdb.set_trace()
 
 if __name__ == '__main__':
-    path = '/home/chenbin/hyf/ECG_random_walk/randomwalk/data'
-    files = os.listdir(path)
-    for file in files:
-        if file[-5:] == 'm.mat':
-            Fs = 500
-            matpath = os.path.join(path, file)
-            rawdata = sio.loadmat(matpath)
-            rawsig = np.squeeze(rawdata['II'])
-            Test1(rawsig,Fs)
+    import codecs
+    import json
+    import paramiko
+    # path = '/home/chenbin/下载/cg_131_.json'
+    path = '/home/chenbin/下载/cg_100_.json'
+    path='/home/chenbin/桌面/labwork/ECG/diagnose_algorithm/testdata/long_PR_pos.json'
+    Fs=500
+    with codecs.open(path,mode='rb',encoding='utf-8') as fin:
+         FIN=json.load(fin)
+    data=FIN
+    ssh=paramiko.SSHClient()
+    ssh.set_missing_host_key_policy(paramiko.AutoAddPolicy())
+    ssh.connect(hostname="166.111.66.4", port=22, username="lab", password="imagelab2016")
+    sftp = ssh.open_sftp()
+    for i in range(10,20):
+        localpath='/home/chenbin/下载/rawdata.mat'
+        sftp.get(data[i]['mat_rhythm'],localpath)
+        rawdata=sio.loadmat(localpath)
+        rawsig = np.squeeze(rawdata['II'])
+        Test1(rawsig,Fs)
