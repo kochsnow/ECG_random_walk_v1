@@ -700,128 +700,8 @@ def Test1(raw_sig,fs):
     plt.legend()
     plt.show()
 
-def TestChanggeng(raw_sig,Fs):
-    '''Test case1.'''
-    def RunWalkerModel(walker_model, seed_positions, confined_ranges, feature_extractor):
-        '''Run random walk detection model.
-        Input:
-            walker_model: random walk regressor for a certain label.
-            seed_positions: list of seed position
-            confined_ranges: list of confined_range
-        '''
-        if abs(fs - 250.0) > 1e-6:
-            raise Exception('Bias has default fs = 250.0Hz!')
 
-        print 'fs = ', fs
 
-        # First add to prepare testing list
-        for seed_position, confined_range in zip(seed_positions, confined_ranges):
-            walker_model.prepareTestSample(seed_position, confined_range)
-
-        start_time = time.time()
-
-        # Second, Testing all prepared positions
-        path_list, scores_list = walker_model.runPreparedTesting(feature_extractor, iterations = 200, stepsize = 4)
-
-        results = list()
-        for path in path_list:
-            # Tnew_list.append(len(set(path)))
-            predict_position = int(np.mean(path[len(path) / 2:]) / 250.0 * fs)
-
-            # For return value of super function
-            results.append((predict_position,
-                    walker_model.target_label))
-        return (results, path_list)
-
-    import matplotlib.pyplot as plt
-    import random
-    import scipy.signal
-    # raw_sig = Denoise(raw_sig)
-    fs=250.0
-    resampled_sig = scipy.signal.resample_poly(raw_sig, 1, int(Fs/fs))
-    # plt.figure(1)
-    # plt.plot(raw_sig, label = 'signal')
-    # plt.plot(xrange(0, len(raw_sig), 2), resampled_sig, label = 'resmaple')
-    # plt.legend()
-    # plt.grid(True)
-    # plt.title(record_name)
-    # plt.show()
-
-    raw_sig = resampled_sig
-
-    # model_folder = '/home/chenbin/hyf/ECG_random_walk/randomwalk/data/models'
-    # pattern_file_name = '/home/chenbin/hyf/ECG_random_walk/randomwalk/data/models/random_pattern.json'
-    model_folder = '/home/chenbin/hyf/ECG_random_walk/rf_models'
-    pattern_file_name = '/home/chenbin/hyf/ECG_random_walk/rf_models/random_pattern.json'
-    model_list = GetModels(model_folder, pattern_file_name)
-    start_time = time.time()
-
-    # Start Testing
-    results = list()
-    # results = Testing_random_walk(raw_sig, 250.0, r_list, model_list)
-    results = Testing(raw_sig, 250.0, model_list, walker_iterations = 200)
-    feature_extractor = model_list[0][0].GetFeatureExtractor(raw_sig)
-    for walker_model, bias, model_label in model_list:
-        if model_label != 'P':
-            continue
-        print 'Testing model label:', model_label
-        seeds = list()
-        confined_ranges = list()
-        for pos in xrange(1, len(raw_sig), 200):
-            seeds.append(pos)
-            confined_ranges.append([0, len(raw_sig) - 1])
-        seed_results, path_list = RunWalkerModel(walker_model, seeds, confined_ranges, feature_extractor)
-        results.extend(seed_results)
-
-    print 'Testing time cost %f secs.' % (time.time() - start_time)
-
-    samples_count = len(raw_sig)
-    time_span = samples_count / fs
-    #print 'Span of testing range: %f samples(%f seconds).' % (samples_count, time_span)
-
-    # Display results
-    plt.figure(1)
-    plt.clf()
-    plt.plot(raw_sig, label = 'ECG')
-    pos_list, label_list = zip(*results)
-    labels = set(label_list)
-    for label in labels:
-        if label != 'P':
-            continue
-        pos_list = [int(x[0]) for x in results if x[1] == label]
-        amp_list = [raw_sig[x] for x in pos_list]
-        marker = 'o' if len(label) == 1 else '|'
-        plt.plot(pos_list, amp_list,
-                marker = marker,
-                linestyle = 'none',
-                markeredgewidth = 5,
-                markersize = 15,
-                alpha = 0.85,
-                markerfacecolor = 'none',
-                markeredgecolor = (random.random(),
-                                    random.random(),
-                                    random.random(),
-                    ),
-                label = label)
-
-        # Plot path
-        # for path, up_amplitude in zip(path_list, amp_list):
-        #     plt.plot(path, xrange(up_amplitude, up_amplitude - int(len(path) * 0.01) + 1, 0.01),'r', alpha = 0.43)
-
-    # Plot failed test
-    # fail_results = ecg.loadAnnot(record_name, target_label = 'P')
-    # pos_list = [int(x[0] / 2) for x in fail_results if x[1] == 'P']
-    # amp_list = [raw_sig[x] for x in pos_list]
-    # plt.plot(pos_list, amp_list, 'x',
-    #         markersize = 15,
-    #         markeredgewidth = 5,
-    #         alpha = 0.5,
-    #         label = 'failed')
-
-    plt.grid(True)
-    plt.legend()
-    plt.show(block = False)
-    # pdb.set_trace()
 
 if __name__ == '__main__':
     import codecs
@@ -838,10 +718,10 @@ if __name__ == '__main__':
     # ssh.set_missing_host_key_policy(paramiko.AutoAddPolicy())
     # ssh.connect(hostname="166.111.66.4", port=22, username="lab", password="imagelab2016")
     # sftp = ssh.open_sftp()
-    for ID in [14092,22298,27780,28253]:
+    for ID in [241,20317,20344]:
         # localpath='/home/chenbin/下载/rawdata.mat'
         # sftp.get(data[i]['mat_rhythm'],localpath)
         # rawdata=sio.loadmat(localpath)
-        rawdata=sio.loadmat(os.path.join('/home/chenbin/下载/data/Tchange',str(ID)+'.mat'))
+        rawdata=sio.loadmat(os.path.join('/home/chenbin/下载/data/shortPR',str(ID)+'.mat'))
         rawsig = np.squeeze(rawdata['II'])
         Test1(rawsig,Fs)
