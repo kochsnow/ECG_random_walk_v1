@@ -700,10 +700,11 @@ def Test1(raw_sig,fs):
 if __name__ == '__main__':
     path = '/home/chenbin/下载/data/shortPR'
     files = os.listdir(path)
-    for file in files[0:10]:
-        print str(file)
+    # for file in files[0:10]:
+    for ID in [32475,52348]:
+        print str(ID)
         Fs = 500
-        matpath = os.path.join(path, file)
+        matpath = os.path.join(path, str(ID)+'.mat')
         rawdata = sio.loadmat(matpath)
         rawsig = np.squeeze(rawdata['II'])
         Test1(rawsig,Fs)
