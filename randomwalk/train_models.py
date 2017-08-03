@@ -142,9 +142,9 @@ def TrainingModels():
     #         keypoint = json.load(fout)
     #     SIG[i] = rawsig
     #     KEYP[i] = keypoint
-    for target_label in ['T','Tonset','Toffset', 'Ronset', 'Roffset']:
+    for target_label in ['P','Ponset','Poffset','T','Tonset','Toffset', 'Ronset', 'Roffset']:
         walker = RandomWalker(target_label=target_label, random_forest_config=dict(),
-                              random_pattern_file_name=os.path.join(curfolder,'data','random_pattern.json'),fs=500.0)
+                              random_pattern_file_name=os.path.join(curfolder,'data','random_pattern.json'),fs=250.0)
         labelfolder=os.path.join(curfolder,'data','labels',target_label)
         sigfolder=os.path.join(curfolder,'data','sig')
         jsonfile=glob.glob(os.path.join(labelfolder,'*.json'))
@@ -160,22 +160,22 @@ def TrainingModels():
             rawdata=sio.loadmat(matpath)
             rawsig=np.squeeze(rawdata['II'])
             rawsig = scipy.signal.resample(rawsig, int(len(rawsig) / float(500) * 250.0))
-            plt.figure(1)
-            plt.plot(rawsig, label='ECG')
-            pos_list, label_list = zip(*expannot_list)
-            labels = set(label_list)
-            labels = list(labels)
-            convert = {'R': 'ro', 'Ronset': 'r<', 'Roffset': 'r>',
-                       'P': 'bo', 'Ponset': 'b<', 'Poffset': 'b>',
-                       'T': 'go', 'Tonset': 'g<', 'Toffset': 'g>'}
-            for label in list(labels):
-                pos_list = [int(x[0]) for x in expannot_list if x[1] == label]
-                amp_list = [rawsig[x] for x in pos_list]
-                plt.plot(pos_list, amp_list, convert[label],
-                         markersize=6,
-                         label=label)
-            plt.show()
-            print annot_list
+            # plt.figure(1)
+            # plt.plot(rawsig, label='ECG')
+            # pos_list, label_list = zip(*expannot_list)
+            # labels = set(label_list)
+            # labels = list(labels)
+            # convert = {'R': 'ro', 'Ronset': 'r<', 'Roffset': 'r>',
+            #            'P': 'bo', 'Ponset': 'b<', 'Poffset': 'b>',
+            #            'T': 'go', 'Tonset': 'g<', 'Toffset': 'g>'}
+            # for label in list(labels):
+            #     pos_list = [int(x[0]) for x in expannot_list if x[1] == label]
+            #     amp_list = [rawsig[x] for x in pos_list]
+            #     plt.plot(pos_list, amp_list, convert[label],
+            #              markersize=6,
+            #              label=label)
+            # plt.show()
+            # print annot_list
             walker.collect_training_data(rawsig, expannot_list)
         walker.training()
         walker.save_model(model_file_name=os.path.join(curfolder, 'data', 'models', target_label+'.mdl'))

@@ -393,7 +393,7 @@ def Testing_random_walk_RR_batch(raw_sig, fs, qrs_locations, model_list, iterati
                 # back_Ronset = None
         # Start testing
         walker_model, bias = model_dict[model_label]
-        batch_Ronset_list = RunWalkerModel(walker_model, seed_positions_dict[model_label], confined_ranges_dict[model_label])
+        batch_Ronset_list,_ = RunWalkerModel(walker_model, seed_positions_dict[model_label], confined_ranges_dict[model_label])
 
 
         # Testing Roffset
@@ -450,7 +450,8 @@ def Testing_random_walk_RR_batch(raw_sig, fs, qrs_locations, model_list, iterati
             walker_model, bias = model_dict[model_label]
             bias = int(float(fs) * bias)
 
-            confined_range = [left_QRS_bound, R_pos]
+            # confined_range = [left_QRS_bound, R_pos]
+            confined_range = [left_QRS_bound, batch_Ronset_list[qrs_index-1]]
             confined_ranges_dict[model_label].append(confined_range)
             seed_position = bias + R_pos
             seed_positions_dict[model_label].append(seed_position)
@@ -687,8 +688,8 @@ def Test1(raw_sig,fs):
     for i in range(len(Ppathlist)):
         pposlist=[x[0] for x in Ppathlist[i]]
         tposlist=[x[0] for x in Tpathlist[i]]
-        plt.plot(pposlist,[0.005*x for x in range(0,100)],'b-',linewidth=1)
-        plt.plot(tposlist, [0.005*x for x in range(0,100)], 'g-', linewidth=1)
+        plt.plot(pposlist,[0.005*x for x in range(0,len(pposlist))],'b-',linewidth=1)
+        plt.plot(tposlist, [0.005*x for x in range(0,len(tposlist))], 'g-', linewidth=1)
     plt.grid(True)
     plt.legend()
     plt.show()
@@ -696,8 +697,11 @@ def Test1(raw_sig,fs):
 
 if __name__ == '__main__':
     path = '/home/chenbin/hyf/ECG_random_walk/randomwalk/data/sig'
-    files = os.listdir(path)
-    for file in files[0:10]:
+    train_files = os.listdir(path)
+    path = '/home/chenbin/下载/data/longPR'
+    all_files=os.listdir(path)
+    test_files=list(set(all_files)-set(train_files))
+    for file in test_files[0:10]:
         print str(file)
         Fs = 500
         matpath = os.path.join(path, file)

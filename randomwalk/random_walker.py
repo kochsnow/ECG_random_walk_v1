@@ -84,21 +84,22 @@ class RandomWalker(object):
         len_annotations = len(annot_pos_list)
         for pos in training_indexes:
             # Find closest target annotation
-            lb = bisect.bisect_left(annot_pos_list, pos)
-            near_pos = -1
-            for si in xrange(lb - 1, lb + 1):
-                if si >= 0 and si < len_annotations:
-                    dist = abs(pos - annot_pos_list[si])
-                    if (near_pos == -1 or
-                            dist < abs(pos - near_pos)):
-                        near_pos = annot_pos_list[si]
-            if near_pos == -1:
-                raise Exception(
-                        'No %s annotations in training sample!' % (
-                            self.target_label,))
-            value = -1 if near_pos < pos else 1
-            feature_vector = feature_extractor.frompos(pos)
-            self.training_data.append((feature_vector, value))
+            if pos < len(raw_sig):
+                lb = bisect.bisect_left(annot_pos_list, pos)
+                near_pos = -1
+                for si in xrange(lb - 1, lb + 1):
+                    if si >= 0 and si < len_annotations:
+                        dist = abs(pos - annot_pos_list[si])
+                        if (near_pos == -1 or
+                                dist < abs(pos - near_pos)):
+                            near_pos = annot_pos_list[si]
+                if near_pos == -1:
+                    raise Exception(
+                            'No %s annotations in training sample!' % (
+                                self.target_label,))
+                value = -1 if near_pos < pos else 1
+                feature_vector = feature_extractor.frompos(pos)
+                self.training_data.append((feature_vector, value))
         
     def save_model(self, model_file_name):
         with open(model_file_name, 'wb') as fout:
