@@ -718,10 +718,10 @@ if __name__ == '__main__':
     # ssh.set_missing_host_key_policy(paramiko.AutoAddPolicy())
     # ssh.connect(hostname="166.111.66.4", port=22, username="lab", password="imagelab2016")
     # sftp = ssh.open_sftp()
-    for ID in [241,20317,20344]:
+    for ID in [4715,5499,7558]:
         # localpath='/home/chenbin/下载/rawdata.mat'
         # sftp.get(data[i]['mat_rhythm'],localpath)
         # rawdata=sio.loadmat(localpath)
-        rawdata=sio.loadmat(os.path.join('/home/chenbin/下载/data/shortPR',str(ID)+'.mat'))
+        rawdata=sio.loadmat(os.path.join('/home/chenbin/下载/data/longPR',str(ID)+'.mat'))
         rawsig = np.squeeze(rawdata['II'])
         Test1(rawsig,Fs)
