@@ -400,8 +400,8 @@ def TEST_loader():
     plt.show()
     
 if __name__ == '__main__':
-    # for target_label in ['R','Ronset','Roffset','P','Ponset','Poffset','T','Tonset','Toffset']:
-    for target_label in ['Toffset']:
+    for target_label in ['Ronset','Roffset','P','Ponset','Poffset','T','Tonset','Toffset']:
+    # for target_label in ['Toffset']:
         tool = whiteSamplePicker(target_label = target_label)
         tool.show(start_index = 0)
     # TEST_loader()

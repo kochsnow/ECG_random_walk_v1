@@ -160,6 +160,7 @@ class ECGfeatures:
     def getWTfeatureforpos(self, pos):
         '''Get WT feature from position in ECG time-domain waveform.'''
         pos = int(pos)
+        # print pos
         if pos<0 or pos >= len(self.signal_in):
             raise StandardError('Input position posx must in range of sig indexs!')
         

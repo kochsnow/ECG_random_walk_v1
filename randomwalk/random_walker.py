@@ -287,13 +287,15 @@ class RandomWalker(object):
 
         
         # For scores of bucket elements
-        scores_list = [list(), ] * len(self.position_bucket)
+        scores_list = [[0]*iterations, ] * len(self.position_bucket)
 
         # For path of bucket elements
         path = list()
         path_list = list()
+        direction_list=list()
         for ind in xrange(0, len(self.position_bucket)):
             path_list.append(list())
+            direction_list.append([0]*iterations)
 
         # For tested position hash
         pos_dict = dict()
@@ -363,7 +365,8 @@ class RandomWalker(object):
                     pos_dict[pos] = tested_score
             
             # Add to scores_list
-            scores_list = zip(scores_list, scores)
+            for bucket_index in range(0,len(self.position_bucket)):
+                scores_list[bucket_index][pi]=scores[bucket_index]
 
             # Update seed_positions for next round
             for bucket_index in xrange(0, len(self.position_bucket)):
@@ -375,6 +378,7 @@ class RandomWalker(object):
                 threshold = (score + 1.0) / 2.0
                 # threshold = self.sigmod_function(threshold)
                 direction = -1.0 if random.ranf() >= threshold else 1.0
+                direction_list[bucket_index][pi]=direction
                 pos += int(direction * stepsize)
 
 
