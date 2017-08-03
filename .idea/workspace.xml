@@ -2,7 +2,6 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="183358b6-9e72-4c85-9fbd-89a3a6beefb2" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/randomwalk/test_api.py" afterPath="$PROJECT_DIR$/randomwalk/test_api.py" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -14,15 +13,15 @@
   </component>
   <component name="ExecutionTargetManager" SELECTED_TARGET="default_target" />
   <component name="FileEditorManager">
-    <leaf>
+    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
       <file leaf-file-name="train_models.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/randomwalk/train_models.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-496">
+            <state relative-caret-position="-538">
               <caret line="108" column="0" lean-forward="false" selection-start-line="108" selection-start-column="0" selection-end-line="108" selection-end-column="0" />
               <folding>
                 <element signature="e#15#24#0" expanded="true" />
-                <marker date="1501741835931" expanded="true" signature="5912:5980" ph="..." />
+                <marker date="1501757474232" expanded="true" signature="5912:5980" ph="..." />
               </folding>
             </state>
           </provider>
@@ -31,63 +30,11 @@
       <file leaf-file-name="P_picker.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/tools/changgeng/P_picker.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="48">
-              <caret line="393" column="25" lean-forward="false" selection-start-line="393" selection-start-column="25" selection-end-line="393" selection-end-column="25" />
+            <state relative-caret-position="306">
+              <caret line="48" column="39" lean-forward="false" selection-start-line="48" selection-start-column="39" selection-end-line="48" selection-end-column="39" />
               <folding>
-                <marker date="1501741835931" expanded="true" signature="690:796" ph="..." />
-                <marker date="1501741835931" expanded="true" signature="13171:13221" ph="..." />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="random_patterns.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/randomwalk/feature_extractor/random_patterns.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="774">
-              <caret line="86" column="18" lean-forward="false" selection-start-line="86" selection-start-column="18" selection-end-line="86" selection-end-column="18" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="random_walker.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/randomwalk/random_walker.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="182">
-              <caret line="86" column="34" lean-forward="false" selection-start-line="86" selection-start-column="34" selection-end-line="86" selection-end-column="34" />
-              <folding>
-                <marker date="1501741835931" expanded="true" signature="14390:14787" ph="..." />
-                <marker date="1501741835931" expanded="true" signature="14390:14932" ph="..." />
-                <marker date="1501741835931" expanded="true" signature="14535:14729" ph="..." />
-                <marker date="1501741835931" expanded="true" signature="14947:16617" ph="..." />
-                <marker date="1501741835931" expanded="true" signature="15815:16070" ph="..." />
-                <marker date="1501741835931" expanded="true" signature="16299:16554" ph="..." />
-                <marker date="1501741835931" expanded="true" signature="16635:17761" ph="..." />
-                <marker date="1501741835931" expanded="true" signature="17469:17520" ph="..." />
-                <marker date="1501741835931" expanded="true" signature="17779:19548" ph="..." />
-                <marker date="1501741835931" expanded="true" signature="18414:19548" ph="..." />
-                <marker date="1501741835931" expanded="true" signature="18986:19045" ph="..." />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="feature_extractor.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/randomwalk/feature_extractor/feature_extractor.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="308">
-              <caret line="84" column="0" lean-forward="false" selection-start-line="84" selection-start-column="0" selection-end-line="84" selection-end-column="0" />
-              <folding>
-                <marker date="1501741835931" expanded="true" signature="254:6109" ph="..." />
-                <marker date="1501741835931" expanded="true" signature="2543:2895" ph="..." />
-                <marker date="1501741835931" expanded="true" signature="5060:6109" ph="..." />
-                <marker date="1501741835931" expanded="true" signature="5590:5679" ph="..." />
-                <marker date="1501741835931" expanded="true" signature="5875:6076" ph="..." />
-                <marker date="1501741835931" expanded="true" signature="6169:6372" ph="..." />
-                <marker date="1501741835931" expanded="true" signature="6174:6246" ph="..." />
-                <marker date="1501741835931" expanded="true" signature="6409:6921" ph="..." />
-                <marker date="1501741835931" expanded="true" signature="6788:6905" ph="..." />
+                <marker date="1501757474232" expanded="true" signature="690:796" ph="..." />
+                <marker date="1501757474232" expanded="true" signature="13171:13221" ph="..." />
               </folding>
             </state>
           </provider>
@@ -96,9 +43,32 @@
       <file leaf-file-name="test_api.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/randomwalk/test_api.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="334">
-              <caret line="720" column="29" lean-forward="false" selection-start-line="720" selection-start-column="25" selection-end-line="720" selection-end-column="29" />
+            <state relative-caret-position="221">
+              <caret line="719" column="28" lean-forward="true" selection-start-line="713" selection-start-column="3" selection-end-line="719" selection-end-column="28" />
               <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="random_walker.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/randomwalk/random_walker.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="130">
+              <caret line="108" column="0" lean-forward="false" selection-start-line="108" selection-start-column="0" selection-end-line="108" selection-end-column="0" />
+              <folding>
+                <marker date="1501757474220" expanded="true" signature="301:14932" ph="..." />
+                <marker date="1501757474220" expanded="true" signature="14390:14787" ph="..." />
+                <marker date="1501757474220" expanded="true" signature="14390:14932" ph="..." />
+                <marker date="1501757474220" expanded="true" signature="14535:14729" ph="..." />
+                <marker date="1501757474220" expanded="true" signature="14947:16617" ph="..." />
+                <marker date="1501757474220" expanded="true" signature="15815:16070" ph="..." />
+                <marker date="1501757474220" expanded="true" signature="16299:16554" ph="..." />
+                <marker date="1501757474220" expanded="true" signature="16635:17761" ph="..." />
+                <marker date="1501757474220" expanded="true" signature="17469:17520" ph="..." />
+                <marker date="1501757474220" expanded="true" signature="17779:19548" ph="..." />
+                <marker date="1501757474220" expanded="true" signature="18414:19548" ph="..." />
+                <marker date="1501757474220" expanded="true" signature="18986:19045" ph="..." />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -106,8 +76,8 @@
       <file leaf-file-name="transport_data.py" pinned="false" current-in-tab="false">
         <entry file="file://$USER_HOME$/下载/transport_data.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="126">
-              <caret line="10" column="24" lean-forward="true" selection-start-line="10" selection-start-column="24" selection-end-line="10" selection-end-column="24" />
+            <state relative-caret-position="216">
+              <caret line="15" column="23" lean-forward="false" selection-start-line="15" selection-start-column="23" selection-end-line="15" selection-end-column="23" />
               <folding />
             </state>
           </provider>
@@ -139,11 +109,12 @@
     </option>
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="210" />
-    <option name="y" value="24" />
+    <option name="x" value="84" />
+    <option name="y" value="27" />
     <option name="width" value="1853" />
     <option name="height" value="1048" />
   </component>
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectView">
     <navigator currentView="ProjectPane" proportions="" version="1">
       <flattenPackages />
@@ -181,6 +152,38 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
+              <option name="myItemId" value="tools" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="ECG_random_walk" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="ECG_random_walk" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="tools" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="changgeng" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="ECG_random_walk" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="ECG_random_walk" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
               <option name="myItemId" value="randomwalk" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
@@ -200,35 +203,13 @@
             </PATH_ELEMENT>
             <PATH_ELEMENT>
               <option name="myItemId" value="data" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="ECG_random_walk" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="ECG_random_walk" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="randomwalk" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="data" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="models" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
         </subPane>
       </pane>
-      <pane id="Scope" />
       <pane id="Scratches" />
+      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -433,26 +414,27 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="210" y="24" width="1853" height="1048" extended-state="0" />
-    <editor active="true" />
+    <frame x="84" y="27" width="1853" height="1048" extended-state="0" />
     <layout>
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.25013804" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.25289896" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
-      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="true" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.2594655" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
-      <window_info id="Python Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32976446" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
+      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
+      <window_info id="Run" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.31514478" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Python Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32976446" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
+      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.44097996" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="true" content_ui="tabs" />
-      <window_info id="Data View" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
+      <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
+      <window_info id="Data View" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
-      <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
+      <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
+      <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.25013804" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
     </layout>
   </component>
@@ -487,11 +469,16 @@
           <line>16</line>
           <option name="timeStamp" value="21" />
         </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/randomwalk/test_api.py</url>
+          <line>724</line>
+          <option name="timeStamp" value="23" />
+        </line-breakpoint>
       </breakpoints>
       <breakpoints-dialog>
         <breakpoints-dialog />
       </breakpoints-dialog>
-      <option name="time" value="23" />
+      <option name="time" value="24" />
     </breakpoint-manager>
     <watches-manager>
       <configuration name="PythonConfigurationType">
@@ -500,11 +487,85 @@
     </watches-manager>
   </component>
   <component name="editorHistoryManager">
+    <entry file="file://$PROJECT_DIR$/randomwalk/train_models.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="3222">
+          <caret line="196" column="0" lean-forward="false" selection-start-line="196" selection-start-column="0" selection-end-line="196" selection-end-column="0" />
+          <folding>
+            <element signature="e#15#24#0" expanded="true" />
+            <marker date="1501757474232" expanded="true" signature="5912:5980" ph="..." />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/tools/changgeng/P_picker.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="7236">
+          <caret line="402" column="25" lean-forward="false" selection-start-line="402" selection-start-column="25" selection-end-line="402" selection-end-column="25" />
+          <folding>
+            <marker date="1501757474232" expanded="true" signature="690:796" ph="..." />
+            <marker date="1501757474232" expanded="true" signature="13171:13221" ph="..." />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/randomwalk/feature_extractor/random_patterns.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1422">
+          <caret line="86" column="18" lean-forward="false" selection-start-line="86" selection-start-column="18" selection-end-line="86" selection-end-column="18" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/randomwalk/random_walker.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1548">
+          <caret line="86" column="34" lean-forward="false" selection-start-line="86" selection-start-column="34" selection-end-line="86" selection-end-column="34" />
+          <folding>
+            <marker date="1501757474220" expanded="true" signature="301:14932" ph="..." />
+            <marker date="1501757474220" expanded="true" signature="14390:14787" ph="..." />
+            <marker date="1501757474220" expanded="true" signature="14390:14932" ph="..." />
+            <marker date="1501757474220" expanded="true" signature="14535:14729" ph="..." />
+            <marker date="1501757474220" expanded="true" signature="14947:16617" ph="..." />
+            <marker date="1501757474220" expanded="true" signature="15815:16070" ph="..." />
+            <marker date="1501757474220" expanded="true" signature="16299:16554" ph="..." />
+            <marker date="1501757474220" expanded="true" signature="16635:17761" ph="..." />
+            <marker date="1501757474220" expanded="true" signature="17469:17520" ph="..." />
+            <marker date="1501757474220" expanded="true" signature="17779:19548" ph="..." />
+            <marker date="1501757474220" expanded="true" signature="18414:19548" ph="..." />
+            <marker date="1501757474220" expanded="true" signature="18986:19045" ph="..." />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/randomwalk/feature_extractor/feature_extractor.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1386">
+          <caret line="84" column="0" lean-forward="false" selection-start-line="84" selection-start-column="0" selection-end-line="84" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$USER_HOME$/下载/transport_data.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="126">
+          <caret line="10" column="24" lean-forward="false" selection-start-line="10" selection-start-column="24" selection-end-line="10" selection-end-column="24" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/randomwalk/test_api.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="12618">
+          <caret line="701" column="0" lean-forward="false" selection-start-line="701" selection-start-column="0" selection-end-line="701" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/tools/TonsetPicker.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-4194">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -512,65 +573,128 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="251">
           <caret line="271" column="29" lean-forward="true" selection-start-line="271" selection-start-column="12" selection-end-line="271" selection-end-column="29" />
-          <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/randomwalk/data/labels/P/1044.json">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/randomwalk/data/labels/P/3402.json">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/randomwalk/data/labels/P/7570.json">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/randomwalk/data/labels/Poffset/1744.json">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
+    <entry file="file://$PROJECT_DIR$/randomwalk/data/labels/P/1044.json" />
+    <entry file="file://$PROJECT_DIR$/randomwalk/data/labels/P/3402.json" />
+    <entry file="file://$PROJECT_DIR$/randomwalk/data/labels/P/7570.json" />
+    <entry file="file://$PROJECT_DIR$/randomwalk/data/labels/Poffset/1744.json" />
     <entry file="file://$PROJECT_DIR$/randomwalk/data/random_pattern.json">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-486">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/randomwalk/feature_extractor/random_patterns.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="774">
+        <state relative-caret-position="1422">
           <caret line="86" column="18" lean-forward="false" selection-start-line="86" selection-start-column="18" selection-end-line="86" selection-end-column="18" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/randomwalk/feature_extractor/feature_extractor.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1386">
+          <caret line="84" column="0" lean-forward="false" selection-start-line="84" selection-start-column="0" selection-end-line="84" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$USER_HOME$/下载/transport_data.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="216">
+          <caret line="15" column="23" lean-forward="false" selection-start-line="15" selection-start-column="23" selection-end-line="15" selection-end-column="23" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/tools/changgeng/P_picker.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="48">
-          <caret line="393" column="25" lean-forward="false" selection-start-line="393" selection-start-column="25" selection-end-line="393" selection-end-column="25" />
+        <state relative-caret-position="342">
+          <caret line="50" column="39" lean-forward="false" selection-start-line="50" selection-start-column="39" selection-end-line="50" selection-end-column="39" />
           <folding>
-            <marker date="1501741835931" expanded="true" signature="690:796" ph="..." />
-            <marker date="1501741835931" expanded="true" signature="13171:13221" ph="..." />
+            <marker date="1501757474232" expanded="true" signature="690:796" ph="..." />
+            <marker date="1501757474232" expanded="true" signature="13171:13221" ph="..." />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/randomwalk/random_walker.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="148">
+          <caret line="109" column="0" lean-forward="false" selection-start-line="109" selection-start-column="0" selection-end-line="109" selection-end-column="0" />
+          <folding>
+            <marker date="1501757474220" expanded="true" signature="301:14932" ph="..." />
+            <marker date="1501757474220" expanded="true" signature="14390:14787" ph="..." />
+            <marker date="1501757474220" expanded="true" signature="14390:14932" ph="..." />
+            <marker date="1501757474220" expanded="true" signature="14535:14729" ph="..." />
+            <marker date="1501757474220" expanded="true" signature="14947:16617" ph="..." />
+            <marker date="1501757474220" expanded="true" signature="15815:16070" ph="..." />
+            <marker date="1501757474220" expanded="true" signature="16299:16554" ph="..." />
+            <marker date="1501757474220" expanded="true" signature="16635:17761" ph="..." />
+            <marker date="1501757474220" expanded="true" signature="17469:17520" ph="..." />
+            <marker date="1501757474220" expanded="true" signature="17779:19548" ph="..." />
+            <marker date="1501757474220" expanded="true" signature="18414:19548" ph="..." />
+            <marker date="1501757474220" expanded="true" signature="18986:19045" ph="..." />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/randomwalk/train_models.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="290">
+          <caret line="154" column="41" lean-forward="true" selection-start-line="154" selection-start-column="41" selection-end-line="154" selection-end-column="41" />
+          <folding>
+            <element signature="e#15#24#0" expanded="true" />
+            <marker date="1501757474232" expanded="true" signature="5912:5980" ph="..." />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/randomwalk/test_api.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="365">
+          <caret line="705" column="15" lean-forward="true" selection-start-line="705" selection-start-column="15" selection-end-line="705" selection-end-column="15" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/tools/TonsetPicker.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-4194">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/dist/ECGRandomWalk-0.1/randomwalk/random_walker.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="251">
+          <caret line="271" column="29" lean-forward="true" selection-start-line="271" selection-start-column="12" selection-end-line="271" selection-end-column="29" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/randomwalk/data/labels/P/1044.json" />
+    <entry file="file://$PROJECT_DIR$/randomwalk/data/labels/P/3402.json" />
+    <entry file="file://$PROJECT_DIR$/randomwalk/data/labels/P/7570.json" />
+    <entry file="file://$PROJECT_DIR$/randomwalk/data/labels/Poffset/1744.json" />
+    <entry file="file://$PROJECT_DIR$/randomwalk/data/random_pattern.json" />
+    <entry file="file://$PROJECT_DIR$/randomwalk/feature_extractor/random_patterns.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="774">
+          <caret line="86" column="18" lean-forward="false" selection-start-line="86" selection-start-column="18" selection-end-line="86" selection-end-column="18" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/tools/changgeng/P_picker.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="306">
+          <caret line="48" column="39" lean-forward="false" selection-start-line="48" selection-start-column="39" selection-end-line="48" selection-end-column="39" />
+          <folding>
+            <marker date="1501757474232" expanded="true" signature="690:796" ph="..." />
+            <marker date="1501757474232" expanded="true" signature="13171:13221" ph="..." />
           </folding>
         </state>
       </provider>
@@ -579,63 +703,54 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="308">
           <caret line="84" column="0" lean-forward="false" selection-start-line="84" selection-start-column="0" selection-end-line="84" selection-end-column="0" />
-          <folding>
-            <marker date="1501741835931" expanded="true" signature="254:6109" ph="..." />
-            <marker date="1501741835931" expanded="true" signature="2543:2895" ph="..." />
-            <marker date="1501741835931" expanded="true" signature="5060:6109" ph="..." />
-            <marker date="1501741835931" expanded="true" signature="5590:5679" ph="..." />
-            <marker date="1501741835931" expanded="true" signature="5875:6076" ph="..." />
-            <marker date="1501741835931" expanded="true" signature="6169:6372" ph="..." />
-            <marker date="1501741835931" expanded="true" signature="6174:6246" ph="..." />
-            <marker date="1501741835931" expanded="true" signature="6409:6921" ph="..." />
-            <marker date="1501741835931" expanded="true" signature="6788:6905" ph="..." />
-          </folding>
+          <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/randomwalk/random_walker.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="182">
-          <caret line="86" column="34" lean-forward="false" selection-start-line="86" selection-start-column="34" selection-end-line="86" selection-end-column="34" />
+        <state relative-caret-position="130">
+          <caret line="108" column="0" lean-forward="false" selection-start-line="108" selection-start-column="0" selection-end-line="108" selection-end-column="0" />
           <folding>
-            <marker date="1501741835931" expanded="true" signature="14390:14787" ph="..." />
-            <marker date="1501741835931" expanded="true" signature="14390:14932" ph="..." />
-            <marker date="1501741835931" expanded="true" signature="14535:14729" ph="..." />
-            <marker date="1501741835931" expanded="true" signature="14947:16617" ph="..." />
-            <marker date="1501741835931" expanded="true" signature="15815:16070" ph="..." />
-            <marker date="1501741835931" expanded="true" signature="16299:16554" ph="..." />
-            <marker date="1501741835931" expanded="true" signature="16635:17761" ph="..." />
-            <marker date="1501741835931" expanded="true" signature="17469:17520" ph="..." />
-            <marker date="1501741835931" expanded="true" signature="17779:19548" ph="..." />
-            <marker date="1501741835931" expanded="true" signature="18414:19548" ph="..." />
-            <marker date="1501741835931" expanded="true" signature="18986:19045" ph="..." />
+            <marker date="1501757474220" expanded="true" signature="301:14932" ph="..." />
+            <marker date="1501757474220" expanded="true" signature="14390:14787" ph="..." />
+            <marker date="1501757474220" expanded="true" signature="14390:14932" ph="..." />
+            <marker date="1501757474220" expanded="true" signature="14535:14729" ph="..." />
+            <marker date="1501757474220" expanded="true" signature="14947:16617" ph="..." />
+            <marker date="1501757474220" expanded="true" signature="15815:16070" ph="..." />
+            <marker date="1501757474220" expanded="true" signature="16299:16554" ph="..." />
+            <marker date="1501757474220" expanded="true" signature="16635:17761" ph="..." />
+            <marker date="1501757474220" expanded="true" signature="17469:17520" ph="..." />
+            <marker date="1501757474220" expanded="true" signature="17779:19548" ph="..." />
+            <marker date="1501757474220" expanded="true" signature="18414:19548" ph="..." />
+            <marker date="1501757474220" expanded="true" signature="18986:19045" ph="..." />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/randomwalk/train_models.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-496">
+        <state relative-caret-position="-538">
           <caret line="108" column="0" lean-forward="false" selection-start-line="108" selection-start-column="0" selection-end-line="108" selection-end-column="0" />
           <folding>
             <element signature="e#15#24#0" expanded="true" />
-            <marker date="1501741835931" expanded="true" signature="5912:5980" ph="..." />
+            <marker date="1501757474232" expanded="true" signature="5912:5980" ph="..." />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$USER_HOME$/下载/transport_data.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="126">
-          <caret line="10" column="24" lean-forward="true" selection-start-line="10" selection-start-column="24" selection-end-line="10" selection-end-column="24" />
+        <state relative-caret-position="216">
+          <caret line="15" column="23" lean-forward="false" selection-start-line="15" selection-start-column="23" selection-end-line="15" selection-end-column="23" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/randomwalk/test_api.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="334">
-          <caret line="720" column="29" lean-forward="false" selection-start-line="720" selection-start-column="25" selection-end-line="720" selection-end-column="29" />
+        <state relative-caret-position="221">
+          <caret line="719" column="28" lean-forward="true" selection-start-line="713" selection-start-column="3" selection-end-line="719" selection-end-column="28" />
           <folding />
         </state>
       </provider>
