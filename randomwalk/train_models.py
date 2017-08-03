@@ -144,7 +144,7 @@ def TrainingModels():
     #     KEYP[i] = keypoint
     for target_label in ['P', 'Ponset', 'Poffset', 'T', 'Tonset', 'Toffset', 'Ronset', 'Roffset']:
         walker = RandomWalker(target_label=target_label, random_forest_config=dict(),
-                              random_pattern_file_name=os.path.join(curfolder,'data','random_pattern.json'),fs=500.0)
+                              random_pattern_file_name=os.path.join(curfolder,'data','random_pattern.json'),fs=250.0)
         labelfolder=os.path.join(curfolder,'data','labels',target_label)
         sigfolder=os.path.join(curfolder,'data','sig')
         jsonfile=glob.glob(os.path.join(labelfolder,'*.json'))
@@ -152,11 +152,13 @@ def TrainingModels():
             with codecs.open(file,'rb',encoding='utf-8') as fin:
                  data=json.load(fin)
             annot_list=data['poslist']
+            annot_list=[int(x/float(500.0)*250) for x in annot_list]
             expannot_list=zip(annot_list,len(annot_list)*[target_label])
             ID=os.path.splitext(os.path.split(file)[-1])[0]
             matpath=os.path.join(sigfolder,str(ID)+'.mat')
             rawdata=sio.loadmat(matpath)
             rawsig=np.squeeze(rawdata['II'])
+            rawsig=scipy.signal.resample(rawsig, int(len(rawsig) / float(500) * 250.0))
             walker.collect_training_data(rawsig, expannot_list)
         walker.training()
         walker.save_model(model_file_name=os.path.join(curfolder, 'data', 'models', target_label+'.mdl'))
@@ -328,8 +330,8 @@ def test():
 
 
 if __name__=='__main__':
-    # TrainingModels()
-    test()
+    TrainingModels()
+    # test()
 #
 # if __name__ == '__main__':
 #     label_list = ['P', 'Ponset', 'Poffset',
