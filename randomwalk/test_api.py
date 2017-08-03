@@ -828,19 +828,20 @@ if __name__ == '__main__':
     import json
     import paramiko
     # path = '/home/chenbin/下载/cg_131_.json'
-    path = '/home/chenbin/下载/cg_100_.json'
-    path='/home/chenbin/桌面/labwork/ECG/diagnose_algorithm/testdata/long_PR_pos.json'
+    # path = '/home/chenbin/下载/cg_100_.json'
+    # path='/home/chenbin/桌面/labwork/ECG/diagnose_algorithm/testdata/long_PR_pos.json'
     Fs=500
-    with codecs.open(path,mode='rb',encoding='utf-8') as fin:
-         FIN=json.load(fin)
-    data=FIN
-    ssh=paramiko.SSHClient()
-    ssh.set_missing_host_key_policy(paramiko.AutoAddPolicy())
-    ssh.connect(hostname="166.111.66.4", port=22, username="lab", password="imagelab2016")
-    sftp = ssh.open_sftp()
-    for i in range(10,20):
-        localpath='/home/chenbin/下载/rawdata.mat'
-        sftp.get(data[i]['mat_rhythm'],localpath)
-        rawdata=sio.loadmat(localpath)
+    # with codecs.open(path,mode='rb',encoding='utf-8') as fin:
+    #      FIN=json.load(fin)
+    # data=FIN
+    # ssh=paramiko.SSHClient()
+    # ssh.set_missing_host_key_policy(paramiko.AutoAddPolicy())
+    # ssh.connect(hostname="166.111.66.4", port=22, username="lab", password="imagelab2016")
+    # sftp = ssh.open_sftp()
+    for ID in [14092,22298,27780,28253]:
+        # localpath='/home/chenbin/下载/rawdata.mat'
+        # sftp.get(data[i]['mat_rhythm'],localpath)
+        # rawdata=sio.loadmat(localpath)
+        rawdata=sio.loadmat(os.path.join('/home/chenbin/下载/data/Tchange',str(ID)+'.mat'))
         rawsig = np.squeeze(rawdata['II'])
         Test1(rawsig,Fs)
