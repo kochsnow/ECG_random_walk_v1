@@ -721,11 +721,13 @@ if __name__ == '__main__':
     import glob
     pathlist=glob.glob(os.path.join('/home/chenbin/下载/data/longQT','*.mat'))
     ID_list=[os.path.splitext(os.path.split(x)[-1])[0] for x in pathlist]
+    ID_list=[34568,241,20317,17442,20344,32475,52348,27184,19856,10253]
     # for ID in [6533,2831]:
     for ID in ID_list:
+        print ID
         # localpath='/home/chenbin/下载/rawdata.mat'
         # sftp.get(data[i]['mat_rhythm'],localpath)
         # rawdata=sio.loadmat(localpath)
-        rawdata=sio.loadmat(os.path.join('/home/chenbin/下载/data/longQT',str(ID)+'.mat'))
+        rawdata=sio.loadmat(os.path.join('/home/chenbin/下载/data/shortPR',str(ID)+'.mat'))
         rawsig = np.squeeze(rawdata['II'])
         Test1(rawsig,Fs)
